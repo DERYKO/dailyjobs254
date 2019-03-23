@@ -15,4 +15,7 @@ Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post('user',function (\Illuminate\Http\Request $request){
+    return \Illuminate\Support\Facades\Auth::user();
+});
+Route::post('view-jobs','JobsController@index');

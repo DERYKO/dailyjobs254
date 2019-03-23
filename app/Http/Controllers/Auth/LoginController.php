@@ -41,6 +41,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->user = new User();
     }
+
     //login
     public function login(Request $request)
     {
@@ -50,24 +51,20 @@ class LoginController extends Controller
         ]);
         // Get user record
         $user = User::where('phone', $request->get('phone'))->first();
-        if($user){
-            if($request->get('phone') != $user->phone) {
-                return response()->json(['message' => 'Unregistered Mobile Number!!!!'], 401);            }
-            elseif(Hash::check( $request->get('password'), $user->password )== false){
+        if ($user) {
+            if ($request->get('phone') != $user->phone) {
+                return response()->json(['message' => 'Unregistered Mobile Number!!!!'], 401);
+            } elseif (Hash::check($request->get('password'), $user->password) == false) {
                 return response()->json(['message' => 'invalid password'], 401);
-            }else{
-                // Set Auth Details
+            } else {
                 Auth::login($user);
-
-                // Return user object
                 return $user;
             }
-        }else{
+        } else {
             return response()->json(['message' => 'User does not exists!!!'], 401);
         }
 
         // Check Condition Mobile No. Found or Not
-
 
 
     }
