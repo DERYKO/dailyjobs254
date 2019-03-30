@@ -23,6 +23,8 @@ class CreateJobsTable extends Migration
             $table->integer('duration');
             $table->float('pay_amount');
             $table->longText('job_location_address');
+            $table->float('latitude');
+            $table->float('longitude');
             $table->timestamps();
         });
     }

@@ -15,13 +15,15 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Job::class, function (Faker $faker) {
     return [
-        'title'=>$faker->text(10),
-        'owner_id'=>$faker->numberBetween(1,5),
+        'title'=>$faker->text(15),
+        'owner_id'=>$faker->numberBetween(1,2),
         'description'=>$faker->text(100),
         'rules'=>$faker->text(100),
         'start_time'=>$faker->dateTime,
         'duration'=>$faker->numberBetween(0,90),
         'pay_amount'=>$faker->randomFloat(2,500,1000000),
-        'job_location_address'=>$faker->url
+        'job_location_address'=>$faker->address,
+        'latitude'=>$faker->randomFloat(4,-1.0,4.0),
+        'longitude'=>$faker->randomFloat(4,30.0,40.0),
     ];
 });

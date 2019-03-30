@@ -19,3 +19,6 @@ Route::post('user',function (\Illuminate\Http\Request $request){
     return \Illuminate\Support\Facades\Auth::user();
 });
 Route::post('view-jobs','JobsController@index');
+Route::post('save-job','JobsController@store');
+Route::post('job-details/get-job/{id}','JobsController@job');
+

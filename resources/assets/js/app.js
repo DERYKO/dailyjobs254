@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import VueGoogleAutocomplete from 'vue-google-autocomplete'
+import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(VueRouter)
 window.axios = require('axios');
 import DateRangePicker from "@gravitano/vue-date-range-picker";
 Vue.use(DateRangePicker);
+import vuetify from 'vuetify'
+Vue.use(vuetify);
 import App from  './components/App.vue'
 import Home from './components/Home.vue'
 import  Login from './components/Login.vue'
@@ -15,7 +17,7 @@ import Account from './components/Account.vue'
 import Profile from  './components/Profile.vue'
 import post_job from './components/post-job.vue'
 
-Vue.use(VueGoogleAutocomplete, {
+Vue.use(VueGoogleMaps, {
     load: {
         key: 'AIzaSyAzumqjvGIRCtXPyw-5GnYVZWdKcwGP5hg',
         libraries: 'places', // This is required if you use the Autocomplete plugin
@@ -38,9 +40,10 @@ const router = new VueRouter({
                     component: jobs
                 },
                 {
-                    path: '/job-details',
-                    name: 'Details',
-                    component: Details
+                    path: '/job-details/:job_id',
+                    name: 'job-details',
+                    component: Details,
+                    props: true
                 },
                 {
                     path: '/account',

@@ -1,15 +1,28 @@
 <template>
-    <div>
-        <img src="images/profile.jpg" style="border-radius: 30%" width="200dp" height="250dp"/>
-        <ul style="list-style: none;">
-            <li><span style="color: #b6a338; font-size: xx-large; font-weight: bold">Name</span><span>  {{user.first_name+" "+user.last_name}}</span></li>
-            <li><span style="color: #b6a338; font-size: xx-large; font-weight: bold">Phone</span><span>  {{user.phone}}</span></li>
-            <li><span style="color: #b6a338; font-size: xx-large; font-weight: bold">Email</span><span>  {{user.email}}</span></li>
-            <li><span style="color: #b6a338; font-size: xx-large; font-weight: bold">ID Number/Passport Number</span><span>  {{user.id_no}}</span></li>
-            <li><span style="color: #b6a338; font-size: xx-large; font-weight: bold">Phone</span><span>  {{user.phone}}</span></li>
-        </ul>
+                <v-layout>
+                    <v-flex xs12 sm6 offset-sm2>
+                        <v-card>
+                            <v-img src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
+                                    aspect-ratio="2.75"
+                            ></v-img>
 
-    </div>
+                            <v-card-title primary-title>
+                                <div>
+                                    <h3 class="headline mb-0">Profile Information</h3>
+                                    <div>  <ul style="list-style: none;">
+                                        <li><span>Name</span><span>  {{user.first_name+" "+user.last_name}}</span></li>
+                                        <li><span>Phone</span><span>  {{user.phone}}</span></li>
+                                        <li><span>Email</span><span>  {{user.email}}</span></li>
+                                        <li><span>ID Number/Passport Number</span><span>  {{user.id_no}}</span></li>
+                                        <li><span>Phone</span><span>  {{user.phone}}</span></li>
+                                    </ul>
+                                    </div>
+                                    <v-btn large>Edit</v-btn>
+                                </div>
+                            </v-card-title>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
 
 </template>
 <script>

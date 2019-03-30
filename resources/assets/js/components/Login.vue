@@ -47,7 +47,7 @@
                axios.post('login',data).then(response=>{
                    this.color='color: #2ca02c; font-style: italic;';
                    this.error='success';
-                   this.$router.push('/');
+                   this.$router.push('/view-jobs');
 
                }).catch(error=>{
                    this.color='color: red; font-style: italic;'

@@ -16,12 +16,46 @@
             </div>
         </nav>
         <div class="col-md-3">
-            <ul style="list-style: none; padding: 6%">
-                <li><router-link tag="li" to="/profile"><a class="btn btn-primary">Profile</a></router-link></li>
-                <li><router-link tag="li" to="/view-jobs"><a class="btn btn-primary active">Jobs</a></router-link></li>
-                <li><router-link tag="li" to="/post-job"><a class="btn btn-primary">Post Job</a></router-link></li>
-                <li><router-link tag="li" to="/account"><a class="btn btn-primary">Account</a></router-link></li>
-            </ul>
+            <v-card height="350px">
+                <v-navigation-drawer
+                        v-model="drawer"
+                        class="blue lighten-4"
+                        permanent
+                        absolute
+                >
+                    <v-toolbar flat class="transparent">
+                        <v-list class="pa-0">
+                            <v-list-tile avatar>
+                                <v-list-tile-avatar>
+                                    <img src="https://randomuser.me/api/portraits/men/85.jpg">
+                                </v-list-tile-avatar>
+
+                                <v-list-tile-content>
+                                    <v-list-tile-title>John Leider</v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                        </v-list>
+                    </v-toolbar>
+
+                    <v-list class="pt-0" dense>
+                        <v-divider></v-divider>
+
+                        <v-list-tile
+                                v-for="item in items"
+                                :key="item.title"
+                                @click=""
+                        >
+                            <v-list-tile-action>
+                                <v-icon>{{ item.icon }}</v-icon>
+                            </v-list-tile-action>
+
+                            <v-list-tile-content>
+                                <v-list-tile-title><router-link tag="li" :to="item.route"><a class="v-list__tile--link">{{item.title}}</a></router-link></v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                    </v-list>
+                </v-navigation-drawer>
+            </v-card>
         </div>
         <div class="col-md-9">
             <router-view ></router-view>
@@ -30,6 +64,12 @@
 </template>
 <script>
     export default {
+        data(){
+            return{
+                drawer: null,
+                items: [{title: 'Profile', route: "/profile"},{title: 'Jobs', route: "/view-jobs"},{title: 'Post Job',route: "/post-job"},{title: 'Account', route: "/account", icon: "settings"}]
+            }
+        }
 
     }
 

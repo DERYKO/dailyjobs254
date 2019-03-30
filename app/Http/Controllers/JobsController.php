@@ -20,6 +20,9 @@ class JobsController extends Controller
         return response()->json(['data' => $jobs]);
 
     }
+    public function job(Request $request,$id){
+        return Job::where('id',$id)->first();
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -45,21 +48,29 @@ class JobsController extends Controller
             'description'=>'required',
             'start_time'=>'required',
             'rules'=> 'required',
-            'duration'=>'required|integer|max:5',
+            'duration'=>'required|integer',
             'pay_amount'=>'required',
             'job_location_address'=>'required'
         ]);
-        Job::create([
-            'title'=>$request->input('title'),
-            'owner_id'=>Auth::id(),
-            'description'=>$request->input('description'),
-            'start_time'=>$request->input('start_time'),
-            'rules'=> $request->input('rules'),
-            'duration'=>$request->input('duration'),
-            'pay_amount'=>$request->input('pay_amount'),
-            'job_location_address'=>serialize($request->input('job_location_address')),
-        ]);
-        return response()->json(['message' => 'success'], 200);
+        if (Auth::check()){
+            Job::create([
+                'title'=>$request->input('title'),
+                'owner_id'=>Auth::id(),
+                'description'=>$request->input('description'),
+                'start_time'=>$request->input('start_time'),
+                'rules'=> $request->input('rules'),
+                'duration'=>$request->input('duration'),
+                'pay_amount'=>$request->input('pay_amount'),
+                'job_location_address'=>serialize($request->input('job_location_address')),
+                'latitude'=>$request->latitude,
+                'longitude'=>$request->longitude,
+            ]);
+            return response()->json(['message' => 'success'], 200);
+        }else{
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+
     }
 
     /**
