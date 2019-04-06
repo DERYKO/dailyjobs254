@@ -15,19 +15,24 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('job_id');
-            $table->integer('applicant_id');
-            $table->integer('job_owner_id');
+            $table->integer('job_id')->unsigned();
+            $table->integer('applicant_id')->unsigned();
+            $table->integer('job_owner_id')->unsigned();
             $table->text('cover_letter');
             $table->foreign('job_id')
                 ->references('id')
-                ->on('jobs');
-            $table->foreign('owner_id')
-                ->references('id')
-                ->on('users');
+                ->on('jobs')
+                ->onUpdate('cascade');
+             $table->foreign('job_owner_id')
+                 ->references('id')
+                 ->on('users')
+                 ->onUpdate('cascade')
+                 ->onDelete('restrict');
             $table->foreign('applicant_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
             $table->timestamps();
         });
     }

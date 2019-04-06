@@ -7,12 +7,7 @@
                     indeterminate
             ></v-progress-circular>
         </div>
-        <paginate
-                name="languages"
-                :list="jobs"
-                :per="2"
-        >
-            <div class="card" v-for="job in paginate('jobs')">
+            <div class="card" v-for="job in jobs">
                 <div class="card-header">
                     <h3>{{job.title}}</h3>
                 </div>
@@ -37,7 +32,6 @@
                     </p>
                 </div>
             </div>
-        </paginate>
       </div>
 </template>
 <script>

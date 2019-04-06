@@ -16,9 +16,9 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->text('rules');
-            $table->integer('owner_id');
+            $table->integer('owner_id')->unsigned();
             $table->string('start_time');
             $table->integer('duration');
             $table->float('pay_amount');
@@ -28,7 +28,9 @@ class CreateJobsTable extends Migration
             $table->boolean('active')->default(true);
             $table->foreign('owner_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
             $table->timestamps();
         });
     }
