@@ -1,6 +1,18 @@
 <template>
     <div class="col-md-9">
-            <div class="card" v-for="job in jobs">
+        <div  v-if="jobs.length<1" class="col-md-9">
+            <v-progress-circular
+                    :size="50"
+                    color="red"
+                    indeterminate
+            ></v-progress-circular>
+        </div>
+        <paginate
+                name="languages"
+                :list="jobs"
+                :per="2"
+        >
+            <div class="card" v-for="job in paginate('jobs')">
                 <div class="card-header">
                     <h3>{{job.title}}</h3>
                 </div>
@@ -25,13 +37,14 @@
                     </p>
                 </div>
             </div>
-
+        </paginate>
       </div>
 </template>
 <script>
     export default {
         mounted(){
             axios.post('view-jobs').then((response)=>{
+                console.log(response.data.data)
                 this.jobs=response.data.data;
             })
         },

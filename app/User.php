@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name','last_name','id_no', 'email', 'password','phone',
+        'first_name', 'last_name', 'id_no', 'email', 'password', 'phone',
     ];
 
     /**
@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function active_jobs()
+    {
+        return $this->hasMany(Job::class)->where('active', true);
+    }
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class);
+    }
 }

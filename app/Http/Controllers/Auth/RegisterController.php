@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Jobs\SendMessage;
+use App\Notifications\NewAccount;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
+    use Notifiable;
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -72,6 +76,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+        $this->dispatch(new SendMessage($user,'Hi '.$user->first_name.', Welcome to the best platform to increase your hustle'));
+        $this->notify(new NewAccount($user));
         return $user;
     }
 }

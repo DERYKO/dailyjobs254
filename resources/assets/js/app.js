@@ -7,6 +7,11 @@ import DateRangePicker from "@gravitano/vue-date-range-picker";
 Vue.use(DateRangePicker);
 import vuetify from 'vuetify'
 Vue.use(vuetify);
+import Toasted from 'vue-toasted';
+Vue.use(Toasted)
+import VuePaginate from 'vue-paginate'
+Vue.use(VuePaginate)
+
 import App from  './components/App.vue'
 import Home from './components/Home.vue'
 import  Login from './components/Login.vue'
@@ -16,6 +21,7 @@ import Details from './components/Details.vue'
 import Account from './components/Account.vue'
 import Profile from  './components/Profile.vue'
 import post_job from './components/post-job.vue'
+import apply from './components/Apply.vue'
 
 Vue.use(VueGoogleMaps, {
     load: {
@@ -60,7 +66,15 @@ const router = new VueRouter({
                     name: 'post job',
                     component: post_job
 
+                },
+                {
+                    path: '/apply/:job_id',
+                    name: 'apply',
+                    component: apply,
+                    props: true
+
                 }
+
             ]
         },
         {
@@ -73,6 +87,7 @@ const router = new VueRouter({
             name: 'register',
             component: Register,
         },
+
     ],
 });
 

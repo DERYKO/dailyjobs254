@@ -2,25 +2,16 @@
 
 namespace App\Jobs;
 
+use App\Job;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class searchjob implements ShouldQueue
+class CheckPastJobs implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
 
     /**
      * Execute the job.
@@ -29,6 +20,11 @@ class searchjob implements ShouldQueue
      */
     public function handle()
     {
-        //
+        Job::where('start_time', '<', now()->toDateTimeString())
+            ->get()->each(function ($job) {
+                $job->update([
+                    'active' => false
+                ]);
+            });
     }
 }

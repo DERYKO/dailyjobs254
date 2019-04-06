@@ -1,6 +1,14 @@
 <template>
                 <v-layout>
-                    <v-flex xs12 sm6 offset-sm2>
+                    <v-flex xs12 sm6 offset-sm2 v-if="this.user.first_name==undefined">
+                    <v-progress-circular
+                            :size="50"
+                            color="red"
+                            indeterminate
+                            v-if="!edit"
+                    ></v-progress-circular>
+                    </v-flex>
+                    <v-flex xs12 sm6 offset-sm2 v-if="!edit && this.user.first_name!=undefined">
                         <v-card>
                             <v-img src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
                                     aspect-ratio="2.75"
@@ -14,13 +22,36 @@
                                         <li><span>Phone</span><span>  {{user.phone}}</span></li>
                                         <li><span>Email</span><span>  {{user.email}}</span></li>
                                         <li><span>ID Number/Passport Number</span><span>  {{user.id_no}}</span></li>
-                                        <li><span>Phone</span><span>  {{user.phone}}</span></li>
                                     </ul>
                                     </div>
-                                    <v-btn large>Edit</v-btn>
+                                    <button class="btn btn-success" v-on:click="view">Edit</button>
                                 </div>
                             </v-card-title>
                         </v-card>
+                    </v-flex>
+                    <v-flex xs12 sm6 offset-sm2 v-if="edit">
+                        <form @submit.prevent="updateUser">
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <input type="text" v-model="user1.first_name" id="first_name" class="form-control" :placeholder="user.first_name"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" v-model="user1.last_name" id="last_name" class="form-control" :placeholder="user.last_name"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text" v-model="user1.email" id="email" class="form-control" :placeholder="user.email"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_no">ID Number</label>
+                                <input type="number" v-model="user1.id_no" id="id_no" class="form-control" :placeholder="user.id_no"/>
+                            </div>
+                            <div class="form-group">
+                               <button class="btn btn-success" type="submit">Update</button>
+                            </div>
+
+                        </form>
                     </v-flex>
                 </v-layout>
 
@@ -38,8 +69,28 @@
      },
      data(){
          return{
-             user: {}
+             user: {},
+             user1: {},
+             edit: false,
          }
-     }
+     },
+    methods:{
+         view: function () {
+             this.edit=true;
+         },
+        updateUser: function () {
+            let user={
+                first_name: this.user1.first_name!=undefined ? this.user1.first_name : this.user.first_name,
+                last_name: this.user1.last_name!=undefined  ? this.user1.last_name : this.user.last_name,
+                phone: this.user1.phone!=undefined  ? this.user1.phone : this.user.phone,
+                email: this.user1.email!=undefined  ? this.user1.email : this.user.email,
+                id_no: this.user1.id_no!=undefined  ? this.user1.id_no : this.user.id_no,
+            }
+           axios.post('user/update/'+this.user.id,user).then((response)=>{
+               this.edit=false;
+           })
+
+        }
+    }
     }
 </script>

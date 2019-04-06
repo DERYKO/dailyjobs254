@@ -1,7 +1,7 @@
 <template>
     <div class="container col-md-12">
             <div class="center card col-md-4">
-                <img src="../../../../public/logo/logo.jpg" style="height: 160px; width: auto" class="card-img-top" alt="...">
+                <img src="https://cf.ltkcdn.net/jobs/images/std/145021-425x251-find_jobs_on_career_builder.JPG" style="height: 220px; width: auto" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title text-center">Login</h5>
                     <div class="card-header text-center">

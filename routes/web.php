@@ -20,5 +20,9 @@ Route::post('user',function (\Illuminate\Http\Request $request){
 });
 Route::post('view-jobs','JobsController@index');
 Route::post('save-job','JobsController@store');
+Route::post('logout','Auth\LoginController@logout');
+Route::post('applications','ApplicationController@store');
 Route::post('job-details/get-job/{id}','JobsController@job');
+Route::post('user/update/{id}','ProfilesController@update');
+
 

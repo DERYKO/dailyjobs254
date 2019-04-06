@@ -25,6 +25,10 @@ class CreateJobsTable extends Migration
             $table->longText('job_location_address');
             $table->float('latitude');
             $table->float('longitude');
+            $table->boolean('active')->default(true);
+            $table->foreign('owner_id')
+                ->references('id')
+                ->on('users');
             $table->timestamps();
         });
     }
