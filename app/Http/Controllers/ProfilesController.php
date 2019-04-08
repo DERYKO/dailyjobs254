@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class ProfilesController extends Controller
 {
@@ -70,8 +71,30 @@ class ProfilesController extends Controller
     public function update(Request $request, $id)
     {
         $user=User::where('id',$id)->first();
-        $user->update($request->all());
-        return response()->json(['message'=>'user updated'],200);
+        if ($request->photo_url){
+            $extension = $request["photo_url"]->getClientOriginalExtension();
+            $fileName = md5(uniqid()) . '.' . $extension;
+            $request["photo_url"]->move(public_path() . '/gpx/', $fileName);
+            $url=URL::to("/").'/gpx/'.$fileName;
+            $user->update([
+                'photo_url'=>$url,
+                'first_name'=>$request->first_name,
+                'last_name'=>$request->last_name,
+                'id_no'=>$request->id_no,
+                'email'=>$request->email,
+            ]);
+
+            return response()->json(['message'=>'user updated','user'=>$user],200);
+
+        }else{
+            $user->update([
+                'first_name'=>$request->first_name,
+                'last_name'=>$request->last_name,
+                'id_no'=>$request->id_no,
+                'email'=>$request->email,
+            ]);
+            return response()->json(['message'=>'user updated','user'=>$user],200);
+        }
     }
 
     /**

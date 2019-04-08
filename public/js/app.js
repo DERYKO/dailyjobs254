@@ -29218,7 +29218,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
-window.axios = __webpack_require__(188);
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3__gravitano_vue_date_range_picker___default.a);
 
@@ -29227,6 +29226,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_4_vuet
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_5_vue_toasted___default.a);
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_vue_paginate___default.a);
+window.axios = __webpack_require__(188);
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 
 
@@ -45087,7 +45088,7 @@ var content = __webpack_require__(170);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("78dc4eec", content, false, {});
+var update = __webpack_require__(6)("325be528", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -45454,7 +45455,7 @@ var content = __webpack_require__(177);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("9762adce", content, false, {});
+var update = __webpack_require__(6)("09541a99", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -76620,7 +76621,7 @@ var content = __webpack_require__(229);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("6bbe4dfa", content, false, {});
+var update = __webpack_require__(6)("ef1c84cc", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -76943,7 +76944,7 @@ var content = __webpack_require__(234);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("305bcd26", content, false, {});
+var update = __webpack_require__(6)("4605f466", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -77939,14 +77940,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
         var _this = this;
 
-        axios({
-            method: 'post',
-            url: 'user'
+        axios.post('user', {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         }).then(function (response) {
             console.log(response);
             _this.user = response.data;
@@ -77964,18 +77974,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         view: function view() {
             this.edit = true;
         },
+        handleFileUpload: function handleFileUpload() {
+            this.user1.photo_url = this.$refs.file.files[0];
+        },
         updateUser: function updateUser() {
             var _this2 = this;
 
-            var user = {
-                first_name: this.user1.first_name != undefined ? this.user1.first_name : this.user.first_name,
-                last_name: this.user1.last_name != undefined ? this.user1.last_name : this.user.last_name,
-                phone: this.user1.phone != undefined ? this.user1.phone : this.user.phone,
-                email: this.user1.email != undefined ? this.user1.email : this.user.email,
-                id_no: this.user1.id_no != undefined ? this.user1.id_no : this.user.id_no
-            };
-            axios.post('user/update/' + this.user.id, user).then(function (response) {
+            var formData = new FormData();
+            formData.append("photo_url", this.user1.photo_url);
+            formData.append("first_name", this.user1.first_name != undefined ? this.user1.first_name : this.user.first_name);
+            formData.append("last_name", this.user1.last_name != undefined ? this.user1.last_name : this.user.last_name);
+            formData.append("phone", this.user1.phone != undefined ? this.user1.phone : this.user.phone);
+            formData.append("email", this.user1.email != undefined ? this.user1.email : this.user.email);
+            formData.append("id_no", this.user1.id_no != undefined ? this.user1.id_no : this.user.id_no);
+            axios.post('user/update/' + this.user.id, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(function (response) {
                 _this2.edit = false;
+                _this2.user = response.data.user;
             });
         }
     }
@@ -78017,7 +78035,10 @@ var render = function() {
                 [
                   _c("v-img", {
                     attrs: {
-                      src: "https://cdn.vuetifyjs.com/images/cards/desert.jpg",
+                      src:
+                        _vm.user.photo_url == null
+                          ? "https://cdn.vuetifyjs.com/images/cards/desert.jpg"
+                          : _vm.user.photo_url,
                       "aspect-ratio": "2.75"
                     }
                   }),
@@ -78084,14 +78105,28 @@ var render = function() {
             _c(
               "form",
               {
+                attrs: { enctype: "multipart/form-data" },
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
-                    return _vm.updateUser($event)
+                    return _vm.updateUser()
                   }
                 }
               },
               [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    ref: "file",
+                    staticClass: "form-control",
+                    attrs: { type: "file", accept: "image/*", id: "file" },
+                    on: {
+                      change: function($event) {
+                        return _vm.handleFileUpload()
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("label", { attrs: { for: "first_name" } }, [
                     _vm._v("First Name")

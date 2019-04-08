@@ -15,6 +15,16 @@ class CreateTranscationsTable extends Migration
     {
         Schema::create('transcations', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('from_id')->unsigned();
+            $table->integer('to_id')->unsigned();
+            $table->float('amount');
+            $table->integer('transfer_type')->unsigned();
+            $table->foreign('from_id')
+                ->references('id')
+                ->on('users');
+            $table->foreign('to_id')
+                ->references('id')
+                ->on('users');
             $table->timestamps();
         });
     }

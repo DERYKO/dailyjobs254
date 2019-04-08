@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(VueRouter)
-window.axios = require('axios');
 import DateRangePicker from "@gravitano/vue-date-range-picker";
 Vue.use(DateRangePicker);
 import vuetify from 'vuetify'
@@ -11,6 +10,9 @@ import Toasted from 'vue-toasted';
 Vue.use(Toasted)
 import VuePaginate from 'vue-paginate'
 Vue.use(VuePaginate)
+window.axios = require('axios');
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
 
 import App from  './components/App.vue'
 import Home from './components/Home.vue'
