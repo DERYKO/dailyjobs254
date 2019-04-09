@@ -9,7 +9,7 @@
         </div>
             <div class="card" v-for="job in jobs">
                 <div class="card-header">
-                    <h3>{{job.title}}</h3>
+                    <p><span class="pull-left" style="font-size: larger;color: black; background-color: #b1b7ba">{{job.title}}</span><img :src="job.user.photo_url" class="pull-right" height="90px" width="90px" style="border-radius: 40%"/></p>
                 </div>
                 <div class="card-body">
                     <p style="text-align: justify; font-style: italic">
@@ -28,7 +28,7 @@
                         Job location: {{job.job_location_address}}
                     </p>
                     <p>
-                        <router-link :to="{ name: 'job-details', params: { job_id: job.id }}" ><button class="btn btn-link">View Details</button></router-link>
+                        <router-link :to="{ name: 'job-details', params: { job_id: job.id }}" ><button class="btn btn-success">View Details</button></router-link>
                     </p>
                 </div>
             </div>
@@ -40,6 +40,8 @@
             axios.post('view-jobs').then((response)=>{
                 console.log(response.data.data)
                 this.jobs=response.data.data;
+            }).catch(function () {
+                this.$router.push('/login');
             })
         },
         data(){

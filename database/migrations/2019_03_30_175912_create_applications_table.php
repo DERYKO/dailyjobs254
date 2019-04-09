@@ -19,6 +19,7 @@ class CreateApplicationsTable extends Migration
             $table->integer('applicant_id')->unsigned();
             $table->integer('job_owner_id')->unsigned();
             $table->text('cover_letter');
+            $table->boolean('accepted')->default(false);
             $table->foreign('job_id')
                 ->references('id')
                 ->on('jobs')

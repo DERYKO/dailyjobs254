@@ -1,8 +1,11 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div class="col-md-12">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#"><img src="https://cf.ltkcdn.net/jobs/images/std/145021-425x251-find_jobs_on_career_builder.JPG" width="100px" height="auto"/></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#"><img
+                    src="https://cf.ltkcdn.net/jobs/images/std/145021-425x251-find_jobs_on_career_builder.JPG"
+                    width="100px" height="auto"/></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -12,6 +15,8 @@
                 <form class="form-inline my-2 my-lg-0 pull-right">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <router-link to="/notifications"><span style="font-size: large; color: red">({{notifications}})<v-icon>fas fa-bell</v-icon></span>
+                    </router-link>
                     <div class="text-xs-center">
                         <v-menu offset-y>
                             <template v-slot:activator="{ on }">
@@ -72,7 +77,10 @@
                             </v-list-tile-action>
 
                             <v-list-tile-content>
-                                <v-list-tile-title><router-link tag="li" :to="item.route"><a class="v-list__tile--link">{{item.title}}</a></router-link></v-list-tile-title>
+                                <v-list-tile-title>
+                                    <router-link tag="li" :to="item.route"><a
+                                            class="v-list__tile--link">{{item.title}}</a></router-link>
+                                </v-list-tile-title>
                             </v-list-tile-content>
                         </v-list-tile>
                     </v-list>
@@ -80,24 +88,33 @@
             </v-card>
         </div>
         <div class="col-md-9">
-            <router-view ></router-view>
+            <router-view></router-view>
         </div>
     </div>
 </template>
 <script>
     export default {
-        data(){
-            return{
+        data() {
+            return {
                 drawer: null,
-                items: [{title: 'Profile', route: "/profile", icon: "far fa-user-circle"},{title: 'Jobs', route: "/view-jobs" ,icon: "fas fa-binoculars"},{title: 'Post Job',route: "/post-job", icon: "fas fa-user-md"},{title: 'Account', route: "/account", icon: "fas fa-user-cog"},{title: 'Wallet', route: "/wallet", icon: "fas fa-wallet"}]
+                notifications: 20,
+                items: [{title: 'Profile', route: "/profile", icon: "far fa-user-circle"}, {
+                    title: 'Jobs',
+                    route: "/view-jobs",
+                    icon: "fas fa-binoculars"
+                }, {title: 'Post Job', route: "/post-job", icon: "fas fa-user-md"}, {
+                    title: 'Account',
+                    route: "/account",
+                    icon: "fas fa-user-cog"
+                }, {title: 'Wallet', route: "/wallet", icon: "fas fa-wallet"}]
             }
         },
         methods: {
             logout: function () {
-                axios.post('logout').then((res)=>{
+                axios.post('logout').then((res) => {
                     this.$router.push('/login');
-                }).catch((error)=>{
-                     console.log(error)
+                }).catch((error) => {
+                    console.log(error)
                 });
             }
         }

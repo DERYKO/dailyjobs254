@@ -24,6 +24,8 @@ import Account from './components/Account.vue'
 import Profile from  './components/Profile.vue'
 import post_job from './components/post-job.vue'
 import apply from './components/Apply.vue'
+import notifications from './components/Notifications.vue';
+import Wallet from './components/Wallet.vue';
 
 Vue.use(VueGoogleMaps, {
     load: {
@@ -75,6 +77,18 @@ const router = new VueRouter({
                     component: apply,
                     props: true
 
+                },
+                {
+                    path: '/notifications',
+                    name: 'Notifications',
+                    component: notifications,
+                    props: true
+
+                },
+                {
+                    path: '/wallet',
+                    name: 'Wallet',
+                    component: Wallet,
                 }
 
             ]

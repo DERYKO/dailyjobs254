@@ -41,6 +41,8 @@
               axios.post('/applications',data).then((response)=>{
                   this.$toasted.show('Your application has been submitted',{duration: 3000});
                   this.$router.push('/view-jobs')
+              }).catch(function () {
+                  this.$router.push('/view-jobs');
               })
             }
         }

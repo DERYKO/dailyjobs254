@@ -105,6 +105,8 @@
                 }).then((response) => {
                     this.edit=false;
                     this.user=response.data.user;
+                }).catch(function () {
+                    this.$router.push('/login');
                 })
 
             }

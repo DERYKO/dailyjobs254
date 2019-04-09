@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Application;
 use App\Job;
+use App\Jobs\JobTranscation;
+use App\Transcation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,8 +21,8 @@ class JobsController extends Controller
         //
         if (Auth::check()){
             $jobs = array();
-            foreach (Job::all() as $job) {
-                if (Application::where('job_id', $job->id)->where('applicant_id', Auth::id())->exists()) {
+            foreach (Job::with('user')->get() as $job) {
+                if (Application::where('job_id', $job->id)->where('applicant_id', Auth::id())->where('job_owner_id',Auth::id())->exists()) {
                 } else {
                     array_push($jobs, $job);
                 }
@@ -67,7 +69,8 @@ class JobsController extends Controller
             'job_location_address' => 'required'
         ]);
         if (Auth::check()) {
-            Job::create([
+            $phone='0711536733';
+            $job=Job::create([
                 'title' => $request->input('title'),
                 'owner_id' => Auth::id(),
                 'description' => $request->input('description'),
@@ -79,7 +82,56 @@ class JobsController extends Controller
                 'latitude' => $request->latitude,
                 'longitude' => $request->longitude,
             ]);
-            return response()->json(['message' => 'success'], 200);
+            $BusinessShortCode=174379;
+            $Passkey='bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';
+            $TransactionType='CustomerPayBillOnline';
+            $Amount=$job->pay_amount;
+            $PartyA=$phone;
+            $PartyB=174379;
+            $PhoneNumber=$phone;
+            $CallBackURL='http://daraja-api.herokuapp.com/c2b/validation';
+            $AccountReference='Heri Home Testing';
+            $TransactionDesc='Testing';
+
+
+            $mpesa_env=env('MPESA_ENV');
+            if($mpesa_env=='sandbox'){
+                $url='https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+            }
+            elseif ($mpesa_env=='live'){
+                $url='https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+            }
+            else{
+                return json_encode(['error message'=>'invalid mpesa environment']);
+            }
+            $access_token=self::generateToken();
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$access_token)); //setting custom header
+
+            $curl_post_data = array(
+                //Fill in the request parameters with valid values
+
+                'BusinessShortCode' => $BusinessShortCode,
+                'Password' => base64_encode($BusinessShortCode.$Passkey.date("YmdHis")),
+                'Timestamp' =>date("YmdHis"),
+                'TransactionType' => $TransactionType,
+                'Amount' => $Amount,
+                'PartyA' => $PartyA,
+                'PartyB' => $PartyB,
+                'PhoneNumber' => $PhoneNumber,
+                'CallBackURL' => $CallBackURL,
+                'AccountReference' => $AccountReference,
+                'TransactionDesc' => $TransactionDesc,
+            );
+            $data_string = json_encode($curl_post_data);
+
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+
+            $curl_response = curl_exec($curl);
+
         } else {
             return response()->json(['message' => 'Unauthorized'], 401);
         }

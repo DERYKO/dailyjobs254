@@ -17,7 +17,7 @@
                     <textarea v-model="rules" class="form-control" id="rules" name="rules" ></textarea>
                 </div>
                 <div class="form-group col-md-9">
-                    <label for="pay_amount">Amount</label>
+                    <label for="pay_amount" style="color: red">Amount(Please note Must! be paid when posting a job)*</label>
                     <input v-model="pay_amount" type="number" class="form-control" id="pay_amount" name="pay_amount" required/>
                 </div>
                 <div class="form-group col-md-9">

@@ -15,17 +15,17 @@ Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 
 Auth::routes();
 
-Route::post('user',function (\Illuminate\Http\Request $request){
+Route::post('user', function (\Illuminate\Http\Request $request) {
     return \Illuminate\Support\Facades\Auth::user();
 });
-Route::post('view-jobs','JobsController@index');
-Route::post('save-job','JobsController@store');
-Route::post('logout','Auth\LoginController@logout');
-Route::post('applications','ApplicationController@store');
-Route::post('job-details/get-job/{id}','JobsController@job');
-Route::post('user/update/{id}','ProfilesController@update');
-Route::get('users',function (){
-    return App\User::all();
-});
+Route::post('accept-bid', 'ApplicationController@update');
+Route::post('wallet', 'WalletController@balance');
+Route::post('notifications', 'ApplicationController@index');
+Route::post('view-jobs', 'JobsController@index');
+Route::post('save-job', 'JobsController@store');
+Route::post('logout', 'Auth\LoginController@logout');
+Route::post('applications', 'ApplicationController@store');
+Route::post('job-details/get-job/{id}', 'JobsController@job');
+Route::post('user/update/{id}', 'ProfilesController@update');
 
 

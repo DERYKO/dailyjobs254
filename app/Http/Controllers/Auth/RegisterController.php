@@ -6,6 +6,7 @@ use App\Jobs\SendMessage;
 use App\Notifications\NewAccount;
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Wallet;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -76,8 +77,12 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-        $this->dispatch(new SendMessage($user,'Hi '.$user->first_name.', Welcome to the best platform to increase your hustle'));
-        $this->notify(new NewAccount($user));
+        Wallet::create([
+          'user_id'=>$user->id,
+          'balance'=>0
+        ]);
+        //$this->dispatch(new SendMessage($user,'Hi '.$user->first_name.', Welcome to the best platform to increase your hustle'));
+        //$this->notify(new NewAccount($user));
         return $user;
     }
 }

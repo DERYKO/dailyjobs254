@@ -37,6 +37,8 @@
               this.title=response.data.title;
               this.description=response.data.description;
               this.amount=response.data.pay_amount;
+          }).catch(function () {
+              this.$router.push('/view-jobs');
           })
         },
         data(){
