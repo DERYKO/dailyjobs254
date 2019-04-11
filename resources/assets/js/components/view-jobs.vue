@@ -1,6 +1,6 @@
 <template>
     <div class="col-md-9">
-        <div  v-if="jobs.length<1" class="col-md-9">
+        <div  v-if="jobs.length<1" class="text-center col-md-9">
             <v-progress-circular
                     :size="50"
                     color="red"

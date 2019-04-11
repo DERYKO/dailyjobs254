@@ -76248,35 +76248,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            drawer: null,
+            clipped: false,
+            drawer: true,
+            fixed: false,
             notifications: 20,
+            miniVariant: false,
+            right: true,
+            rightDrawer: false,
             items: [{ title: 'Profile', route: "/profile", icon: "far fa-user-circle" }, {
                 title: 'Jobs',
                 route: "/view-jobs",
@@ -76311,295 +76293,225 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col-md-12" }, [
-    _c(
-      "nav",
-      { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._m(1),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "collapse navbar-collapse",
-            attrs: { id: "navbarTogglerDemo02" }
+  return _c(
+    "v-app",
+    [
+      _c(
+        "v-navigation-drawer",
+        {
+          attrs: {
+            persistent: "",
+            "mini-variant": _vm.miniVariant,
+            clipped: _vm.clipped,
+            "enable-resize-watcher": "",
+            fixed: "",
+            app: ""
           },
-          [
-            _c("ul", { staticClass: "navbar-nav mr-auto mt-2 mt-lg-0" }),
-            _vm._v(" "),
-            _c(
-              "form",
-              { staticClass: "form-inline my-2 my-lg-0 pull-right" },
-              [
-                _c("input", {
-                  staticClass: "form-control mr-sm-2",
-                  attrs: { type: "search", placeholder: "Search" }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-outline-success my-2 my-sm-0",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v("Search")]
-                ),
-                _vm._v(" "),
-                _c("router-link", { attrs: { to: "/notifications" } }, [
+          model: {
+            value: _vm.drawer,
+            callback: function($$v) {
+              _vm.drawer = $$v
+            },
+            expression: "drawer"
+          }
+        },
+        [
+          _c("img", {
+            staticClass: "card-img-top",
+            staticStyle: { height: "150px", width: "150px" },
+            attrs: {
+              src:
+                "https://cf.ltkcdn.net/jobs/images/std/145021-425x251-find_jobs_on_career_builder.JPG",
+              alt: "..."
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "v-list",
+            _vm._l(_vm.items, function(item, i) {
+              return _c(
+                "v-list-tile",
+                { key: i, attrs: { value: "true" } },
+                [
                   _c(
-                    "span",
-                    { staticStyle: { "font-size": "large", color: "red" } },
+                    "v-list-tile-action",
                     [
-                      _vm._v("(" + _vm._s(_vm.notifications) + ")"),
-                      _c("v-icon", [_vm._v("fas fa-bell")])
+                      _c("v-icon", {
+                        domProps: { innerHTML: _vm._s(item.icon) }
+                      })
                     ],
                     1
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "text-xs-center" },
-                  [
-                    _c(
-                      "v-menu",
-                      {
-                        attrs: { "offset-y": "" },
-                        scopedSlots: _vm._u([
-                          {
-                            key: "activator",
-                            fn: function(ref) {
-                              var on = ref.on
-                              return [
-                                _c(
-                                  "v-btn",
-                                  _vm._g(
-                                    { attrs: { color: "primary", dark: "" } },
-                                    on
-                                  ),
-                                  [
-                                    _vm._v(
-                                      "\n                                Dashboard\n                            "
-                                    )
-                                  ]
-                                )
-                              ]
-                            }
-                          }
-                        ])
-                      },
-                      [
-                        _vm._v(" "),
-                        _c(
-                          "v-list",
-                          [
-                            _c(
-                              "v-list-tile",
-                              [
-                                _c("v-list-tile-title", [
-                                  _c(
-                                    "form",
-                                    {
-                                      on: {
-                                        submit: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.logout($event)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass: "btn btn-default",
-                                          attrs: { type: "submit" }
-                                        },
-                                        [_vm._v("Logout")]
-                                      )
-                                    ]
-                                  )
-                                ])
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ]
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-md-3" },
-      [
-        _c(
-          "v-card",
-          { attrs: { height: "350px" } },
-          [
-            _c(
-              "v-navigation-drawer",
-              {
-                staticClass: "blue lighten-4",
-                attrs: { permanent: "", absolute: "" },
-                model: {
-                  value: _vm.drawer,
-                  callback: function($$v) {
-                    _vm.drawer = $$v
-                  },
-                  expression: "drawer"
-                }
-              },
-              [
-                _c(
-                  "v-toolbar",
-                  { staticClass: "transparent", attrs: { flat: "" } },
-                  [
-                    _c(
-                      "v-list",
-                      { staticClass: "pa-0" },
-                      [
-                        _c(
-                          "v-list-tile",
-                          { attrs: { avatar: "" } },
-                          [
-                            _c("v-list-tile-avatar", [
-                              _c("img", {
-                                attrs: {
-                                  src:
-                                    "https://cf.ltkcdn.net/jobs/images/std/145021-425x251-find_jobs_on_career_builder.JPG"
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "v-list-tile-content",
-                              [
-                                _c("v-list-tile-title", [
-                                  _vm._v("Jobs Around You")
-                                ])
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "v-list",
-                  { staticClass: "pt-0", attrs: { dense: "" } },
-                  [
-                    _c("v-divider"),
-                    _vm._v(" "),
-                    _vm._l(_vm.items, function(item) {
-                      return _c(
-                        "v-list-tile",
-                        { key: item.title },
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-tile-content",
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: item.route } },
                         [
-                          _c(
-                            "v-list-tile-action",
-                            [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-tile-content",
-                            [
-                              _c(
-                                "v-list-tile-title",
-                                [
-                                  _c(
-                                    "router-link",
-                                    { attrs: { tag: "li", to: item.route } },
-                                    [
-                                      _c(
-                                        "a",
-                                        { staticClass: "v-list__tile--link" },
-                                        [_vm._v(_vm._s(item.title))]
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
+                          _c("v-list-tile-title", {
+                            domProps: { textContent: _vm._s(item.title) }
+                          })
                         ],
                         1
                       )
-                    })
-                  ],
-                  2
-                )
-              ],
-              1
-            )
-          ],
-          1
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "col-md-9" }, [_c("router-view")], 1)
-  ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            }),
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-toolbar",
+        { attrs: { app: "", "clipped-left": _vm.clipped } },
+        [
+          _c("v-toolbar-side-icon", {
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+                _vm.drawer = !_vm.drawer
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { icon: "" },
+              on: {
+                click: function($event) {
+                  $event.stopPropagation()
+                  _vm.miniVariant = !_vm.miniVariant
+                }
+              }
+            },
+            [
+              _c("v-icon", {
+                domProps: {
+                  innerHTML: _vm._s(
+                    _vm.miniVariant ? "chevron_right" : "chevron_left"
+                  )
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { icon: "" },
+              on: {
+                click: function($event) {
+                  $event.stopPropagation()
+                  _vm.clipped = !_vm.clipped
+                }
+              }
+            },
+            [_c("v-icon", [_vm._v("web")])],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { icon: "" },
+              on: {
+                click: function($event) {
+                  $event.stopPropagation()
+                  _vm.fixed = !_vm.fixed
+                }
+              }
+            },
+            [_c("v-icon", [_vm._v("remove")])],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-toolbar-title", {
+            domProps: { textContent: _vm._s(_vm.title) }
+          }),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { icon: "" },
+              on: {
+                click: function($event) {
+                  $event.stopPropagation()
+                  _vm.rightDrawer = !_vm.rightDrawer
+                }
+              }
+            },
+            [_c("v-icon", [_vm._v("menu")])],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-content", [_c("router-view")], 1),
+      _vm._v(" "),
+      _c(
+        "v-navigation-drawer",
+        {
+          attrs: { temporary: "", right: _vm.right, fixed: "", app: "" },
+          model: {
+            value: _vm.rightDrawer,
+            callback: function($$v) {
+              _vm.rightDrawer = $$v
+            },
+            expression: "rightDrawer"
+          }
+        },
+        [
+          _c(
+            "v-list",
+            [
+              _c(
+                "v-list-tile",
+                {
+                  on: {
+                    click: function($event) {
+                      _vm.right = !_vm.right
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "v-list-tile-action",
+                    [_c("v-icon", [_vm._v("compare_arrows")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-list-tile-title", [_vm._v("Switch drawer (click me)")])
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-footer", { attrs: { fixed: _vm.fixed, app: "" } }, [
+        _c("span", [_vm._v("© 2017")])
+      ])
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-      _c("img", {
-        attrs: {
-          src:
-            "https://cf.ltkcdn.net/jobs/images/std/145021-425x251-find_jobs_on_career_builder.JPG",
-          width: "100px",
-          height: "auto"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "navbar-toggler",
-        attrs: {
-          type: "button",
-          "data-toggle": "collapse",
-          "data-target": "#navbarTogglerDemo02",
-          "aria-controls": "navbarTogglerDemo02",
-          "aria-expanded": "false",
-          "aria-label": "Toggle navigation"
-        }
-      },
-      [_c("span", { staticClass: "navbar-toggler-icon" })]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -77494,7 +77406,7 @@ var render = function() {
       _vm.jobs.length < 1
         ? _c(
             "div",
-            { staticClass: "col-md-9" },
+            { staticClass: "text-center col-md-9" },
             [
               _c("v-progress-circular", {
                 attrs: { size: 50, color: "red", indeterminate: "" }
