@@ -1,6 +1,7 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-app>
         <v-navigation-drawer
+                style="background-color: #c9e2b3"
                 persistent
                 :mini-variant="miniVariant"
                 :clipped="clipped"
@@ -9,7 +10,9 @@
                 fixed
                 app
         >
-            <img src="https://cf.ltkcdn.net/jobs/images/std/145021-425x251-find_jobs_on_career_builder.JPG" style="height: 150px; width: 150px" class="card-img-top" alt="...">
+            <v-card style="background-color: transparent;" class="text-center">
+                    <img src="https://cf.ltkcdn.net/jobs/images/std/145021-425x251-find_jobs_on_career_builder.JPG" style="height: 150px; width: 100%" class="card-img-top" alt="...">
+            </v-card>
             <v-list>
                 <v-list-tile
                         value="true"
@@ -20,9 +23,10 @@
                         <v-icon v-html="item.icon"></v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                       <router-link :to="item.route"><v-list-tile-title v-text="item.title"></v-list-tile-title></router-link>
+                        <router-link :to="item.route"> <v-list-tile-title v-text="item.title"></v-list-tile-title> </router-link>
                     </v-list-tile-content>
                 </v-list-tile>
+
             </v-list>
         </v-navigation-drawer>
         <v-toolbar
@@ -41,9 +45,21 @@
             </v-btn>
             <v-toolbar-title v-text="title"></v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-                <v-icon>menu</v-icon>
-            </v-btn>
+            <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                    <v-btn
+                            v-on="on"
+                    >
+                        <v-icon>menu</v-icon>
+                    </v-btn>
+                </template>
+                <v-list>
+                    <v-list-tile
+                    >
+                        <v-list-tile-title>Logout</v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-menu>
         </v-toolbar>
         <v-content>
                 <router-view/>
@@ -64,8 +80,21 @@
                 </v-list-tile>
             </v-list>
         </v-navigation-drawer>
-        <v-footer :fixed="fixed" app>
-            <span>&copy; 2017</span>
+        <v-footer :fixed="fixed" app style="background-color: black;">
+            <div class="d-md-flex justify-content-between align-items-center">
+
+                <div class="mb-2 mb-md-0">
+                    <a href="#" class="text-white mr-3"><i class="fab fa-facebook-square"></i></a>
+                    <a href="#" class="text-white mr-3"><i class="fab fa-twitter-square"></i></a>
+                    <a href="#" class="text-white mr-3"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div class="mb-0 text-white">&copy;Jobs254</div>
+                <div class="">
+                    <a href="/privacy" class=" btn btn-link text-white">Privacy Policy</a>
+                    <a href="/terms" class=" btn btn-link text-white">Terms</a>
+                    <a href="/faq" class=" btn btn-link text-white">FAQ</a>
+                </div>
+            </div>
         </v-footer>
     </v-app>
 </template>

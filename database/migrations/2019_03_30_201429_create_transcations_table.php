@@ -18,7 +18,7 @@ class CreateTranscationsTable extends Migration
             $table->integer('from_id')->unsigned();
             $table->integer('to_id')->unsigned();
             $table->float('amount');
-            $table->integer('transfer_type')->unsigned();
+            $table->string('transfer_type');
             $table->foreign('from_id')
                 ->references('id')
                 ->on('users');

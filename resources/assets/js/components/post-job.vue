@@ -1,7 +1,4 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
                 <form method="post" @submit.prevent="save()">
                 <ul v-for="error in errors"><li>{{error}}</li></ul>
                 <div class="form-group col-md-9">
@@ -54,10 +51,6 @@
                     Post Job
                 </button>
                 </form>
-            </div>
-        </div>
-
-    </div>
 
 </template>
 <script>

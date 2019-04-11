@@ -76248,6 +76248,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -76299,6 +76328,7 @@ var render = function() {
       _c(
         "v-navigation-drawer",
         {
+          staticStyle: { "background-color": "#c9e2b3" },
           attrs: {
             persistent: "",
             "mini-variant": _vm.miniVariant,
@@ -76316,15 +76346,24 @@ var render = function() {
           }
         },
         [
-          _c("img", {
-            staticClass: "card-img-top",
-            staticStyle: { height: "150px", width: "150px" },
-            attrs: {
-              src:
-                "https://cf.ltkcdn.net/jobs/images/std/145021-425x251-find_jobs_on_career_builder.JPG",
-              alt: "..."
-            }
-          }),
+          _c(
+            "v-card",
+            {
+              staticClass: "text-center",
+              staticStyle: { "background-color": "transparent" }
+            },
+            [
+              _c("img", {
+                staticClass: "card-img-top",
+                staticStyle: { height: "150px", width: "100%" },
+                attrs: {
+                  src:
+                    "https://cf.ltkcdn.net/jobs/images/std/145021-425x251-find_jobs_on_career_builder.JPG",
+                  alt: "..."
+                }
+              })
+            ]
+          ),
           _vm._v(" "),
           _c(
             "v-list",
@@ -76442,17 +76481,40 @@ var render = function() {
           _c("v-spacer"),
           _vm._v(" "),
           _c(
-            "v-btn",
+            "v-menu",
             {
-              attrs: { icon: "" },
-              on: {
-                click: function($event) {
-                  $event.stopPropagation()
-                  _vm.rightDrawer = !_vm.rightDrawer
+              attrs: { "offset-y": "" },
+              scopedSlots: _vm._u([
+                {
+                  key: "activator",
+                  fn: function(ref) {
+                    var on = ref.on
+                    return [
+                      _c(
+                        "v-btn",
+                        _vm._g({}, on),
+                        [_c("v-icon", [_vm._v("menu")])],
+                        1
+                      )
+                    ]
+                  }
                 }
-              }
+              ])
             },
-            [_c("v-icon", [_vm._v("menu")])],
+            [
+              _vm._v(" "),
+              _c(
+                "v-list",
+                [
+                  _c(
+                    "v-list-tile",
+                    [_c("v-list-tile-title", [_vm._v("Logout")])],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
             1
           )
         ],
@@ -76504,9 +76566,76 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-footer", { attrs: { fixed: _vm.fixed, app: "" } }, [
-        _c("span", [_vm._v("© 2017")])
-      ])
+      _c(
+        "v-footer",
+        {
+          staticStyle: { "background-color": "black" },
+          attrs: { fixed: _vm.fixed, app: "" }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "d-md-flex justify-content-between align-items-center"
+            },
+            [
+              _c("div", { staticClass: "mb-2 mb-md-0" }, [
+                _c(
+                  "a",
+                  { staticClass: "text-white mr-3", attrs: { href: "#" } },
+                  [_c("i", { staticClass: "fab fa-facebook-square" })]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  { staticClass: "text-white mr-3", attrs: { href: "#" } },
+                  [_c("i", { staticClass: "fab fa-twitter-square" })]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  { staticClass: "text-white mr-3", attrs: { href: "#" } },
+                  [_c("i", { staticClass: "fab fa-instagram" })]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "mb-0 text-white" }, [
+                _vm._v("©Jobs254")
+              ]),
+              _vm._v(" "),
+              _c("div", {}, [
+                _c(
+                  "a",
+                  {
+                    staticClass: " btn btn-link text-white",
+                    attrs: { href: "/privacy" }
+                  },
+                  [_vm._v("Privacy Policy")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: " btn btn-link text-white",
+                    attrs: { href: "/terms" }
+                  },
+                  [_vm._v("Terms")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: " btn btn-link text-white",
+                    attrs: { href: "/faq" }
+                  },
+                  [_vm._v("FAQ")]
+                )
+              ])
+            ]
+          )
+        ]
+      )
     ],
     1
   )
@@ -78475,13 +78604,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -78577,236 +78699,217 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c(
-          "form",
-          {
-            attrs: { method: "post" },
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.save()
-              }
+  return _c(
+    "form",
+    {
+      attrs: { method: "post" },
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.save()
+        }
+      }
+    },
+    [
+      _vm._l(_vm.errors, function(error) {
+        return _c("ul", [_c("li", [_vm._v(_vm._s(error))])])
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-9" }, [
+        _c("label", { attrs: { for: "title" } }, [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.title,
+              expression: "title"
             }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", id: "title", name: "title", required: "" },
+          domProps: { value: _vm.title },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.title = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-9" }, [
+        _c("label", { attrs: { for: "description" } }, [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.description,
+              expression: "description"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { id: "description", name: "description", required: "" },
+          domProps: { value: _vm.description },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.description = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-9" }, [
+        _c("label", { attrs: { for: "rules" } }, [_vm._v("Rules")]),
+        _vm._v(" "),
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.rules,
+              expression: "rules"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { id: "rules", name: "rules" },
+          domProps: { value: _vm.rules },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.rules = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-9" }, [
+        _c(
+          "label",
+          { staticStyle: { color: "red" }, attrs: { for: "pay_amount" } },
+          [_vm._v("Amount(Please note Must! be paid when posting a job)*")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.pay_amount,
+              expression: "pay_amount"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "number",
+            id: "pay_amount",
+            name: "pay_amount",
+            required: ""
           },
-          [
-            _vm._l(_vm.errors, function(error) {
-              return _c("ul", [_c("li", [_vm._v(_vm._s(error))])])
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-9" }, [
-              _c("label", { attrs: { for: "title" } }, [_vm._v("Title")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.title,
-                    expression: "title"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  id: "title",
-                  name: "title",
-                  required: ""
-                },
-                domProps: { value: _vm.title },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.title = $event.target.value
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-9" }, [
-              _c("label", { attrs: { for: "description" } }, [
-                _vm._v("Description")
-              ]),
-              _vm._v(" "),
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.description,
-                    expression: "description"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { id: "description", name: "description", required: "" },
-                domProps: { value: _vm.description },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.description = $event.target.value
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-9" }, [
-              _c("label", { attrs: { for: "rules" } }, [_vm._v("Rules")]),
-              _vm._v(" "),
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.rules,
-                    expression: "rules"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { id: "rules", name: "rules" },
-                domProps: { value: _vm.rules },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.rules = $event.target.value
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-9" }, [
-              _c(
-                "label",
-                { staticStyle: { color: "red" }, attrs: { for: "pay_amount" } },
-                [
-                  _vm._v(
-                    "Amount(Please note Must! be paid when posting a job)*"
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.pay_amount,
-                    expression: "pay_amount"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "number",
-                  id: "pay_amount",
-                  name: "pay_amount",
-                  required: ""
-                },
-                domProps: { value: _vm.pay_amount },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.pay_amount = $event.target.value
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
+          domProps: { value: _vm.pay_amount },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.pay_amount = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "form-group col-md-9" },
+        [
+          _c("label", { attrs: { for: "duration" } }, [_vm._v("Duration")]),
+          _vm._v(" "),
+          _c("date-range-picker", {
+            attrs: {
+              className: "form-control",
+              id: "duration",
+              options: _vm.options,
+              required: ""
+            },
+            model: {
+              value: _vm.range,
+              callback: function($$v) {
+                _vm.range = $$v
+              },
+              expression: "range"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "form-group col-md-9" },
+        [
+          _c("h4", [_vm._v("Job Location")]),
+          _vm._v(" "),
+          _c("div", [
             _c(
-              "div",
-              { staticClass: "form-group col-md-9" },
+              "label",
               [
-                _c("label", { attrs: { for: "duration" } }, [
-                  _vm._v("Duration")
-                ]),
-                _vm._v(" "),
-                _c("date-range-picker", {
-                  attrs: {
-                    className: "form-control",
-                    id: "duration",
-                    options: _vm.options,
-                    required: ""
-                  },
-                  model: {
-                    value: _vm.range,
-                    callback: function($$v) {
-                      _vm.range = $$v
-                    },
-                    expression: "range"
-                  }
+                _c("gmap-autocomplete", {
+                  staticClass: "form-control col-md-9",
+                  on: { place_changed: _vm.setPlace }
                 })
               ],
               1
             ),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "form-group col-md-9" },
-              [
-                _c("h4", [_vm._v("Job Location")]),
-                _vm._v(" "),
-                _c("div", [
-                  _c(
-                    "label",
-                    [
-                      _c("gmap-autocomplete", {
-                        staticClass: "form-control col-md-9",
-                        on: { place_changed: _vm.setPlace }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("br")
-                ]),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c(
-                  "gmap-map",
-                  {
-                    staticStyle: { width: "100%", height: "400px" },
-                    attrs: { center: _vm.center, zoom: 12 }
-                  },
-                  _vm._l(_vm.markers, function(m, index) {
-                    return _c("gmap-marker", {
-                      key: index,
-                      attrs: { position: m.position },
-                      on: {
-                        click: function($event) {
-                          _vm.center = m.position
-                        }
-                      }
-                    })
-                  }),
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "col-md-9 btn btn-primary btn-lg",
-                attrs: { type: "submit" }
-              },
-              [_vm._v("\n                Post Job\n            ")]
-            )
-          ],
-          2
-        )
-      ])
-    ])
-  ])
+            _c("br")
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "gmap-map",
+            {
+              staticStyle: { width: "100%", height: "400px" },
+              attrs: { center: _vm.center, zoom: 12 }
+            },
+            _vm._l(_vm.markers, function(m, index) {
+              return _c("gmap-marker", {
+                key: index,
+                attrs: { position: m.position },
+                on: {
+                  click: function($event) {
+                    _vm.center = m.position
+                  }
+                }
+              })
+            }),
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "col-md-9 btn btn-primary btn-lg",
+          attrs: { type: "submit" }
+        },
+        [_vm._v("\n    Post Job\n")]
+      )
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
