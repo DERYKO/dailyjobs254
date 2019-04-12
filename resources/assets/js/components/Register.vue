@@ -62,7 +62,7 @@
                 }
                 axios.post('register',data).then((response)=>{
                     console.log(response.data)
-                    this.$router.push('/login')
+                    this.$router.push('/')
                 }).catch((errors)=>{
                     this.errors=errors.response.data.errors;
                     console.log(this.errors);

@@ -1,11 +1,7 @@
 <template>
     <div class="col-md-9">
         <div  v-if="jobs.length<1" class="text-center col-md-9">
-            <v-progress-circular
-                    :size="50"
-                    color="red"
-                    indeterminate
-            ></v-progress-circular>
+            <span style="font-size: 50px; color: black">No jobs available for now</span>
         </div>
             <div class="card" v-for="job in jobs">
                 <div class="card-header">

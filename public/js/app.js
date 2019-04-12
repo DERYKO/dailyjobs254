@@ -29257,7 +29257,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vue2
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
     mode: 'history',
     routes: [{
-        path: '/',
+        path: '/home',
         name: 'home',
         component: __WEBPACK_IMPORTED_MODULE_8__components_Home_vue___default.a,
         children: [{
@@ -29300,7 +29300,7 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
             component: __WEBPACK_IMPORTED_MODULE_18__components_Wallet_vue___default.a
         }]
     }, {
-        path: '/login',
+        path: '/',
         name: 'login',
         component: __WEBPACK_IMPORTED_MODULE_9__components_Login_vue___default.a
     }, {
@@ -76289,10 +76289,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             right: true,
             rightDrawer: false,
             items: [{ title: 'Profile', route: "/profile", icon: "far fa-user-circle" }, {
-                title: 'Jobs',
+                title: 'Search Jobs',
                 route: "/view-jobs",
                 icon: "fas fa-binoculars"
             }, { title: 'Post Job', route: "/post-job", icon: "fas fa-user-md" }, {
+                title: 'Notifications',
+                route: "/notifications",
+                icon: "fas fa-bell"
+            }, {
                 title: 'Account',
                 route: "/account",
                 icon: "fas fa-user-cog"
@@ -76474,9 +76478,11 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("v-toolbar-title", {
-            domProps: { textContent: _vm._s(_vm.title) }
-          }),
+          _c(
+            "v-toolbar-title",
+            { domProps: { textContent: _vm._s(_vm.title) } },
+            [_vm._v("OneDayJobs")]
+          ),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
@@ -76508,7 +76514,22 @@ var render = function() {
                 [
                   _c(
                     "v-list-tile",
-                    [_c("v-list-tile-title", [_vm._v("Logout")])],
+                    [
+                      _c("v-list-tile-title", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-default btn-sm",
+                            on: {
+                              click: function($event) {
+                                return _vm.logout()
+                              }
+                            }
+                          },
+                          [_vm._v("Logout")]
+                        )
+                      ])
+                    ],
                     1
                   )
                 ],
@@ -77137,7 +77158,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             };
             axios.post('register', data).then(function (response) {
                 console.log(response.data);
-                _this.$router.push('/login');
+                _this.$router.push('/');
             }).catch(function (errors) {
                 _this.errors = errors.response.data.errors;
                 console.log(_this.errors);
@@ -77497,10 +77518,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -77533,16 +77550,13 @@ var render = function() {
     { staticClass: "col-md-9" },
     [
       _vm.jobs.length < 1
-        ? _c(
-            "div",
-            { staticClass: "text-center col-md-9" },
-            [
-              _c("v-progress-circular", {
-                attrs: { size: 50, color: "red", indeterminate: "" }
-              })
-            ],
-            1
-          )
+        ? _c("div", { staticClass: "text-center col-md-9" }, [
+            _c(
+              "span",
+              { staticStyle: { "font-size": "50px", color: "black" } },
+              [_vm._v("No jobs available for now")]
+            )
+          ])
         : _vm._e(),
       _vm._v(" "),
       _vm._l(_vm.jobs, function(job) {
@@ -79244,7 +79258,10 @@ var render = function() {
     _c("div", [
       _c(
         "table",
-        { staticClass: "table table-striped" },
+        {
+          staticClass: "table table-striped",
+          staticStyle: { "font-size": "20px" }
+        },
         [
           _vm._m(0),
           _vm._v(" "),

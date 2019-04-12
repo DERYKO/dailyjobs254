@@ -43,7 +43,7 @@
             <v-btn icon @click.stop="fixed = !fixed">
                 <v-icon>remove</v-icon>
             </v-btn>
-            <v-toolbar-title v-text="title"></v-toolbar-title>
+            <v-toolbar-title v-text="title">OneDayJobs</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
@@ -56,7 +56,7 @@
                 <v-list>
                     <v-list-tile
                     >
-                        <v-list-tile-title>Logout</v-list-tile-title>
+                        <v-list-tile-title><button @click="logout()" class="btn btn-default btn-sm">Logout</button></v-list-tile-title>
                     </v-list-tile>
                 </v-list>
             </v-menu>
@@ -109,11 +109,18 @@
                 miniVariant: false,
                 right: true,
                 rightDrawer: false,
-                items: [{title: 'Profile', route: "/profile", icon: "far fa-user-circle"}, {
-                    title: 'Jobs',
+                items: [
+                    {title: 'Profile', route: "/profile", icon: "far fa-user-circle"}, {
+                    title: 'Search Jobs',
                     route: "/view-jobs",
                     icon: "fas fa-binoculars"
-                }, {title: 'Post Job', route: "/post-job", icon: "fas fa-user-md"}, {
+                }, {title: 'Post Job', route: "/post-job", icon: "fas fa-user-md"},
+                    {
+                        title: 'Notifications',
+                        route: "/notifications",
+                        icon: "fas fa-bell"
+                    },
+                    {
                     title: 'Account',
                     route: "/account",
                     icon: "fas fa-user-cog"
