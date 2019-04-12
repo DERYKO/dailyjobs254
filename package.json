@@ -21,6 +21,7 @@
     "dependencies": {
         "@gravitano/vue-date-range-picker": "^0.1.5",
         "geolocation-marker": "^2.0.5",
+        "jsonwebtoken": "^8.5.1",
         "vue-google-autocomplete": "^1.1.0",
         "vue-paginate": "^3.6.0",
         "vue-router": "^3.0.2",

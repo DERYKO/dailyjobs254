@@ -29,6 +29,7 @@
 
 </template>
 <script>
+    import jwt from 'jsonwebtoken'
     export default {
         data(){
             return{
@@ -45,8 +46,11 @@
                     password: this.password,
                 }
                axios.post('login',data).then(response=>{
+                   this.error='';
                    this.color='color: #2ca02c; font-style: italic;';
                    this.error='success';
+                   var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
+                   localStorage.setItem('jwt', token);
                    this.$router.push('/view-jobs');
 
                }).catch(error=>{

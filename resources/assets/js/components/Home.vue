@@ -130,7 +130,7 @@
         methods: {
             logout: function () {
                 axios.post('logout').then((res) => {
-                    this.$router.push('/login');
+                    this.$router.push('/');
                 }).catch((error) => {
                     console.log(error)
                 });

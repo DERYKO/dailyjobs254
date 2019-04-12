@@ -42,6 +42,9 @@ const router = new VueRouter({
         {
             path: '/home',
             name: 'home',
+            meta: {
+                requiresAuth: true
+            },
             component: Home,
             children:[
                 {
@@ -106,6 +109,17 @@ const router = new VueRouter({
 
     ],
 });
+router.beforeEach((to,from,next)=>{
+    let requiresAuth=to.matched.some(record=>record.meta.requiresAuth);
+    if (requiresAuth && localStorage.getItem('jwt') ==null){
+        next('/')
+    }else if(!requiresAuth && localStorage.getItem('jwt') != null){
+        next('view-jobs')
+    }
+    else {
+        next()
+    }
+})
 
 const app = new Vue({
     el: '#app',

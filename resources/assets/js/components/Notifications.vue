@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-10">
         <div>
-             <table class="table table-striped" style="font-size: 20px">
+             <table class="table table-striped">
                  <thead>
                  <th>
                      Job Name
