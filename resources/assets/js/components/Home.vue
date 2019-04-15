@@ -121,6 +121,11 @@
                         icon: "fas fa-bell"
                     },
                     {
+                        title: 'Profiles',
+                        route: "/profiles",
+                        icon: "fas fa-user"
+                    },
+                    {
                     title: 'Account',
                     route: "/account",
                     icon: "fas fa-user-cog"
@@ -130,6 +135,7 @@
         methods: {
             logout: function () {
                 axios.post('logout').then((res) => {
+                    localStorage.removeItem('jwt')
                     this.$router.push('/');
                 }).catch((error) => {
                     console.log(error)

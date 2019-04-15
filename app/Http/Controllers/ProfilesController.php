@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
 class ProfilesController extends Controller
@@ -15,7 +16,8 @@ class ProfilesController extends Controller
      */
     public function index()
     {
-        //
+        $profiles=User::where('id','!=',Auth::id())->with('review')->get();
+        return response()->json(['data'=>$profiles]);
     }
 
     /**
@@ -74,8 +76,8 @@ class ProfilesController extends Controller
         if ($request->photo_url){
             $extension = $request["photo_url"]->getClientOriginalExtension();
             $fileName = md5(uniqid()) . '.' . $extension;
-            $request["photo_url"]->move(public_path() . '/gpx/', $fileName);
-            $url=URL::to("/").'/gpx/'.$fileName;
+            $request["photo_url"]->move(public_path() . '/profile/', $fileName);
+            $url=URL::to("/").'/profile/'.$fileName;
             $user->update([
                 'photo_url'=>$url,
                 'first_name'=>$request->first_name,

@@ -12514,7 +12514,7 @@ var debugs = {};
 var debugEnviron;
 exports.debuglog = function(set) {
   if (isUndefined(debugEnviron))
-    debugEnviron = Object({"NODE_ENV":"development"}).NODE_DEBUG || '';
+    debugEnviron = Object({"MIX_PUSHER_APP_CLUSTER":"ap2","MIX_PUSHER_APP_KEY":"aa68d5472e9a5c7b6fad","NODE_ENV":"development"}).NODE_DEBUG || '';
   set = set.toUpperCase();
   if (!debugs[set]) {
     if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
@@ -43361,7 +43361,7 @@ module.exports = semver.satisfies(process.version, '^6.12.0 || >=8.0.0');
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(234);
-module.exports = __webpack_require__(445);
+module.exports = __webpack_require__(448);
 
 
 /***/ }),
@@ -43407,6 +43407,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_Notifications_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__components_Notifications_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_Wallet_vue__ = __webpack_require__(442);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_Wallet_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__components_Wallet_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_Profiles_vue__ = __webpack_require__(445);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_Profiles_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__components_Profiles_vue__);
 
 
 
@@ -43421,6 +43423,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_5_vue_
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_vue_paginate___default.a);
 window.axios = __webpack_require__(283);
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
 
 
 
@@ -43490,6 +43493,10 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
             path: '/wallet',
             name: 'Wallet',
             component: __WEBPACK_IMPORTED_MODULE_18__components_Wallet_vue___default.a
+        }, {
+            path: '/profiles',
+            name: 'Profiles',
+            component: __WEBPACK_IMPORTED_MODULE_19__components_Profiles_vue___default.a
         }]
     }, {
         path: '/',
@@ -90403,6 +90410,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 route: "/notifications",
                 icon: "fas fa-bell"
             }, {
+                title: 'Profiles',
+                route: "/profiles",
+                icon: "fas fa-user"
+            }, {
                 title: 'Account',
                 route: "/account",
                 icon: "fas fa-user-cog"
@@ -90415,6 +90426,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             axios.post('logout').then(function (res) {
+                localStorage.removeItem('jwt');
                 _this.$router.push('/');
             }).catch(function (error) {
                 console.log(error);
@@ -101189,9 +101201,9 @@ function plural(ms, msAbs, n, name) {
 // The debug function is excluded entirely from the minified version.
 /* nomin */ var debug;
 /* nomin */ if (typeof process === 'object' &&
-    /* nomin */ Object({"NODE_ENV":"development"}) &&
-    /* nomin */ Object({"NODE_ENV":"development"}).NODE_DEBUG &&
-    /* nomin */ /\bsemver\b/i.test(Object({"NODE_ENV":"development"}).NODE_DEBUG))
+    /* nomin */ Object({"MIX_PUSHER_APP_CLUSTER":"ap2","MIX_PUSHER_APP_KEY":"aa68d5472e9a5c7b6fad","NODE_ENV":"development"}) &&
+    /* nomin */ Object({"MIX_PUSHER_APP_CLUSTER":"ap2","MIX_PUSHER_APP_KEY":"aa68d5472e9a5c7b6fad","NODE_ENV":"development"}).NODE_DEBUG &&
+    /* nomin */ /\bsemver\b/i.test(Object({"MIX_PUSHER_APP_CLUSTER":"ap2","MIX_PUSHER_APP_KEY":"aa68d5472e9a5c7b6fad","NODE_ENV":"development"}).NODE_DEBUG))
   /* nomin */ debug = function() {
     /* nomin */ var args = Array.prototype.slice.call(arguments, 0);
     /* nomin */ args.unshift('SEMVER');
@@ -105395,6 +105407,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['job_id'],
@@ -105407,6 +105426,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lat: response.data.latitude,
                 lng: response.data.longitude
             };
+            _this.latitude = response.data.latitude;
+            _this.longitude = response.data.longitude;
             _this.markers.push({ position: marker });
             _this.places.push(_this.currentPlace);
             _this.center = marker;
@@ -105428,7 +105449,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             places: [],
             description: '',
             title: '',
-            amount: null
+            amount: null,
+            latitude: null,
+            longitude: null,
+            distance: null
         };
     },
 
@@ -105438,15 +105462,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            var im = 'http://www.robotwoods.com/dev/misc/bluecircle.png';
-            var oMarker = new google.maps.Marker({
-                position: marker,
-                sName: "Current Location"
-            });
-            this.markers.push(oMarker);
+            this.distance = this.calcCrow(this.latitude, this.longitude, marker.lat, marker.lng).toFixed(1);
         },
         fail: function fail() {
             alert('navigator.geolocation failed, may not be supported');
+        },
+        calcCrow: function calcCrow(lat1, lon1, lat2, lon2) {
+            var R = 6371; // km
+            var dLat = this.toRad(lat2 - lat1);
+            var dLon = this.toRad(lon2 - lon1);
+            var lat1 = this.toRad(lat1);
+            var lat2 = this.toRad(lat2);
+
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = R * c;
+            return d;
+        },
+
+
+        // Converts numeric degrees to radians
+        toRad: function toRad(Value) {
+            return Value * Math.PI / 180;
         }
     }
 });
@@ -105492,6 +105529,37 @@ var render = function() {
       _vm._v(" "),
       _c("p", { staticStyle: { "font-weight": "bold", color: "black" } }, [
         _vm._v("Amount: " + _vm._s(_vm.amount) + " Ksh")
+      ]),
+      _vm._v(" "),
+      _c("p", { staticStyle: { "font-weight": "bold", color: "black" } }, [
+        _vm._v(
+          "Distance in kilometres from your current position: " +
+            _vm._s(_vm.distance) +
+            " Km(s)"
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", { staticStyle: { "font-weight": "bold", color: "black" } }, [
+        _vm._v(
+          "Estimated Minimum Fare: " +
+            _vm._s(
+              (400 * _vm.distance) / 150 < 20
+                ? 20 * 2
+                : Math.round((400 * _vm.distance) / 150) * 2
+            ) +
+            " Ksh"
+        )
+      ]),
+      _vm._v(" "),
+      _c("p", { staticStyle: { "font-weight": "bold", color: "black" } }, [
+        _vm._v(
+          "Possible maximum profit: " +
+            _vm._s(
+              (95 / 100) *
+                (_vm.amount - Math.round((400 * _vm.distance) / 150) * 2)
+            ) +
+            " Ksh"
+        )
       ]),
       _vm._v(" "),
       _c(
@@ -107225,6 +107293,253 @@ if (false) {
 
 /***/ }),
 /* 445 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(5)
+/* script */
+var __vue_script__ = __webpack_require__(446)
+/* template */
+var __vue_template__ = __webpack_require__(447)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Profiles.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-33832021", Component.options)
+  } else {
+    hotAPI.reload("data-v-33832021", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 446 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        var _this = this;
+
+        axios.post('profiles').then(function (response) {
+            _this.users = response.data.data;
+        });
+    },
+    data: function data() {
+        return {
+            users: []
+        };
+    }
+});
+
+/***/ }),
+/* 447 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-layout",
+    [
+      _c(
+        "v-flex",
+        { attrs: { xs12: "", sm10: "", "offset-sm1": "" } },
+        [
+          _c(
+            "v-card",
+            [
+              _c(
+                "v-container",
+                _vm._b(
+                  { attrs: { fluid: "" } },
+                  "v-container",
+                  ((_obj = {}),
+                  (_obj["grid-list-" + _vm.users.length] = true),
+                  _obj),
+                  false
+                ),
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { row: "", wrap: "" } },
+                    _vm._l(_vm.users, function(user) {
+                      return _c(
+                        "v-flex",
+                        { key: _vm.n, attrs: { xs4: "" } },
+                        [
+                          _c(
+                            "v-card-title",
+                            {
+                              staticClass: "text-center",
+                              attrs: { "primary-title": "" }
+                            },
+                            [
+                              _c("h2", [
+                                _vm._v(
+                                  _vm._s(user.first_name + " " + user.last_name)
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", [
+                                _c(
+                                  "p",
+                                  [
+                                    _c("v-icon", [
+                                      _vm._v("fas fa-envelope-open-text")
+                                    ]),
+                                    _vm._v(" " + _vm._s(user.email))
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  [
+                                    _c("v-icon", [
+                                      _vm._v("fas fa-phone-volume")
+                                    ]),
+                                    _vm._v(" " + _vm._s(user.phone))
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-card",
+                            { attrs: { flat: "", tile: "" } },
+                            [
+                              _c("v-img", {
+                                attrs: {
+                                  src:
+                                    user.photo_url == null
+                                      ? "https://cdn.vuetifyjs.com/images/cards/desert.jpg"
+                                      : user.photo_url,
+                                  width: "150px",
+                                  height: "150px"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-footer",
+                            [
+                              _c(
+                                "v-btn",
+                                { attrs: { fab: "", dark: "", color: "teal" } },
+                                [
+                                  _c("v-icon", { attrs: { dark: "" } }, [
+                                    _vm._v("list")
+                                  ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    }),
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+  var _obj
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-33832021", module.exports)
+  }
+}
+
+/***/ }),
+/* 448 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

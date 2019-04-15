@@ -27,5 +27,6 @@ Route::post('logout', 'Auth\LoginController@logout');
 Route::post('applications', 'ApplicationController@store');
 Route::post('job-details/get-job/{id}', 'JobsController@job');
 Route::post('user/update/{id}', 'ProfilesController@update');
+Route::post('profiles','ProfilesController@index');
 
 

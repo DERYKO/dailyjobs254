@@ -36,4 +36,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Job::class);
     }
+    public function review(){
+        return $this->hasMany(Review::class,'reviewee','id');
+    }
 }

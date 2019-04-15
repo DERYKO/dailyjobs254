@@ -13,7 +13,6 @@ Vue.use(VuePaginate)
 window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-
 import App from  './components/App.vue'
 import Home from './components/Home.vue'
 import  Login from './components/Login.vue'
@@ -26,6 +25,7 @@ import post_job from './components/post-job.vue'
 import apply from './components/Apply.vue'
 import notifications from './components/Notifications.vue';
 import Wallet from './components/Wallet.vue';
+import Profiles from './components/Profiles.vue';
 
 Vue.use(VueGoogleMaps, {
     load: {
@@ -92,6 +92,11 @@ const router = new VueRouter({
                     path: '/wallet',
                     name: 'Wallet',
                     component: Wallet,
+                },
+                {
+                    path: '/profiles',
+                    name: 'Profiles',
+                    component: Profiles,
                 }
 
             ]

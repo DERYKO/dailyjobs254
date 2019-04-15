@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Jobs\CheckPastJobs;
+use App\Jobs\SendClockinMessages;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -26,6 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
       $schedule->job(new CheckPastJobs())->everyMinute();
+      $schedule->job(new SendClockinMessages())->everyMinute();
     }
 
     /**
