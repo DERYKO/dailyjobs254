@@ -21,7 +21,7 @@ class JobsController extends Controller
         //
         if (Auth::check()) {
             $jobs = array();
-            foreach (Job::where('active',1)->where('owner_id','!=',Auth::id())->with('user')->get() as $job) {
+            foreach (Job::where('active',1)->where('owner_id','!=',Auth::id())->with('user')->with('forecast')->get() as $job) {
                 if (Application::where('job_id', $job->id)->where('applicant_id', Auth::id())->exists()) {
 
                 }else{
@@ -29,9 +29,23 @@ class JobsController extends Controller
                 }
 
             }
-            return response()->json(['data' => $jobs]);
+
+            return response()->json(['data' => collect($jobs)->map(function ($job){
+               return [  'job'=>$job,
+                       'forecast'=>$job->forecast->filter(function ($forecast){
+                    return str_contains($forecast->time,now()->toDateString());
+                })->values()];
+            })]);
         } else {
-            return response()->json(['data' => Job::get()]);
+            return response()->json(['data' => collect(Job::with('forecast')->get())->map(function ($job){
+                return[
+                    collect($job)->filter(function ($job){
+                        return !$job->forecast;
+                    }),
+                    $job->forecast->filter(function ($forecast){
+
+                })];
+            })]);
 
         }
     }

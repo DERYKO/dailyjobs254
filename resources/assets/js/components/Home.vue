@@ -80,22 +80,6 @@
                 </v-list-tile>
             </v-list>
         </v-navigation-drawer>
-        <v-footer :fixed="fixed" app style="background-color: black;">
-            <div class="d-md-flex justify-content-between align-items-center">
-
-                <div class="mb-2 mb-md-0">
-                    <a href="#" class="text-white mr-3"><i class="fab fa-facebook-square"></i></a>
-                    <a href="#" class="text-white mr-3"><i class="fab fa-twitter-square"></i></a>
-                    <a href="#" class="text-white mr-3"><i class="fab fa-instagram"></i></a>
-                </div>
-                <div class="mb-0 text-white">&copy;Jobs254</div>
-                <div class="">
-                    <a href="/privacy" class=" btn btn-link text-white">Privacy Policy</a>
-                    <a href="/terms" class=" btn btn-link text-white">Terms</a>
-                    <a href="/faq" class=" btn btn-link text-white">FAQ</a>
-                </div>
-            </div>
-        </v-footer>
     </v-app>
 </template>
 <script>

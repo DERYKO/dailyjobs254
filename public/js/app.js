@@ -90374,22 +90374,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -90703,77 +90687,6 @@ var render = function() {
           )
         ],
         1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-footer",
-        {
-          staticStyle: { "background-color": "black" },
-          attrs: { fixed: _vm.fixed, app: "" }
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "d-md-flex justify-content-between align-items-center"
-            },
-            [
-              _c("div", { staticClass: "mb-2 mb-md-0" }, [
-                _c(
-                  "a",
-                  { staticClass: "text-white mr-3", attrs: { href: "#" } },
-                  [_c("i", { staticClass: "fab fa-facebook-square" })]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "text-white mr-3", attrs: { href: "#" } },
-                  [_c("i", { staticClass: "fab fa-twitter-square" })]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "text-white mr-3", attrs: { href: "#" } },
-                  [_c("i", { staticClass: "fab fa-instagram" })]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "mb-0 text-white" }, [
-                _vm._v("©Jobs254")
-              ]),
-              _vm._v(" "),
-              _c("div", {}, [
-                _c(
-                  "a",
-                  {
-                    staticClass: " btn btn-link text-white",
-                    attrs: { href: "/privacy" }
-                  },
-                  [_vm._v("Privacy Policy")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: " btn btn-link text-white",
-                    attrs: { href: "/terms" }
-                  },
-                  [_vm._v("Terms")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: " btn btn-link text-white",
-                    attrs: { href: "/faq" }
-                  },
-                  [_vm._v("FAQ")]
-                )
-              ])
-            ]
-          )
-        ]
       )
     ],
     1
@@ -105181,6 +105094,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -105195,9 +105123,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            jobs: []
+            jobs: [],
+            days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
         };
+    },
+
+    methods: {
+        getPath: function getPath(code) {
+            return "icons/png/" + code + ".png";
+        }
     }
+
 });
 
 /***/ }),
@@ -105236,13 +105172,13 @@ var render = function() {
                     "background-color": "#b1b7ba"
                   }
                 },
-                [_vm._v(_vm._s(job.title))]
+                [_vm._v(_vm._s(job.job.title))]
               ),
               _c("img", {
                 staticClass: "pull-right",
                 staticStyle: { "border-radius": "40%" },
                 attrs: {
-                  src: job.user.photo_url,
+                  src: job.job.user.photo_url,
                   height: "90px",
                   width: "90px"
                 }
@@ -105259,7 +105195,7 @@ var render = function() {
               [
                 _vm._v(
                   "\n                    " +
-                    _vm._s(job.description) +
+                    _vm._s(job.job.description) +
                     "\n                "
                 )
               ]
@@ -105268,7 +105204,7 @@ var render = function() {
             _c("p", [
               _vm._v(
                 "\n                    Duration:  " +
-                  _vm._s(job.duration) +
+                  _vm._s(job.job.duration) +
                   " days\n                "
               )
             ]),
@@ -105276,7 +105212,7 @@ var render = function() {
             _c("p", [
               _vm._v(
                 "\n                    Amount: " +
-                  _vm._s(job.pay_amount) +
+                  _vm._s(job.job.pay_amount) +
                   " Ksh\n                "
               )
             ]),
@@ -105284,7 +105220,7 @@ var render = function() {
             _c("p", [
               _vm._v(
                 "\n                    Reporting date and time: " +
-                  _vm._s(job.start_time) +
+                  _vm._s(job.job.start_time) +
                   "\n                "
               )
             ]),
@@ -105292,7 +105228,7 @@ var render = function() {
             _c("p", [
               _vm._v(
                 "\n                    Job location: " +
-                  _vm._s(job.job_location_address) +
+                  _vm._s(job.job.job_location_address) +
                   "\n                "
               )
             ]),
@@ -105304,7 +105240,10 @@ var render = function() {
                   "router-link",
                   {
                     attrs: {
-                      to: { name: "job-details", params: { job_id: job.id } }
+                      to: {
+                        name: "job-details",
+                        params: { job_id: job.job.id }
+                      }
                     }
                   },
                   [
@@ -105316,7 +105255,67 @@ var render = function() {
               ],
               1
             )
-          ])
+          ]),
+          _vm._v(" "),
+          job.forecast.length
+            ? _c("div", { staticClass: "card-footer" }, [
+                _c("h2", { staticClass: "text-center" }, [
+                  _vm._v("Weather for the day.")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "scrolling-wrapper",
+                    staticStyle: {
+                      "overflow-x": "scroll",
+                      "overflow-y": "hidden",
+                      "white-space": "nowrap"
+                    }
+                  },
+                  _vm._l(job.forecast, function(prediction) {
+                    return _c(
+                      "v-card",
+                      {
+                        staticStyle: {
+                          display: "inline-block",
+                          height: "250px",
+                          width: "250px"
+                        }
+                      },
+                      [
+                        _c("v-card-title", { attrs: { "primary-title": "" } }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(prediction.prediction) +
+                              "\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("v-img", {
+                          staticStyle: { width: "75px", height: "83px" },
+                          attrs: { src: _vm.getPath(prediction.icon_code) }
+                        }),
+                        _vm._v(" "),
+                        _c("v-card-title", { attrs: { "primary-title": "" } }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(prediction.time) +
+                              " (" +
+                              _vm._s(
+                                _vm.days[new Date(prediction.time).getDay()]
+                              ) +
+                              ")\n                        "
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  }),
+                  1
+                )
+              ])
+            : _vm._e()
         ])
       })
     ],
