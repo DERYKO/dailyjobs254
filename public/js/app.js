@@ -105130,7 +105130,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         getPath: function getPath(code) {
-            return "icons/png/" + code + ".png";
+            return "icons/png/" + this.pad(code) + ".png";
+        },
+        pad: function pad(num) {
+            if (num < 10) {
+                return "0" + num;
+            } else {
+                return num;
+            }
         }
     }
 

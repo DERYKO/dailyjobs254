@@ -63,7 +63,14 @@
         },
         methods:{
             getPath: function (code) {
-                return "icons/png/"+code+".png";
+                return "icons/png/"+this.pad(code)+".png";
+            },
+            pad(num) {
+                if (num<10){
+                    return "0"+num;
+                }else{
+                    return num;
+                }
             }
         }
 
