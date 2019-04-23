@@ -1,7 +1,8 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-app>
         <v-navigation-drawer
-                style="background-color: #c9e2b3"
+               id="drawer"
+               style="background:url('images/background.jpg');"
                 persistent
                 :mini-variant="miniVariant"
                 :clipped="clipped"
@@ -11,7 +12,7 @@
                 app
         >
             <v-card style="background-color: transparent;" class="text-center">
-                    <img src="https://cf.ltkcdn.net/jobs/images/std/145021-425x251-find_jobs_on_career_builder.JPG" style="height: 150px; width: 100%" class="card-img-top" alt="...">
+                    <img src="https://cf.ltkcdn.net/jobs/images/std/145021-425x251-find_jobs_on_career_builder.JPG" style="height: 150px; width: 100%; border-radius: 30%; border: solid;" class="card-img-top" alt="...">
             </v-card>
             <v-list>
                 <v-list-tile
@@ -30,6 +31,7 @@
             </v-list>
         </v-navigation-drawer>
         <v-toolbar
+                style="background: ghostwhite"
                 app
                 :clipped-left="clipped"
         >
@@ -130,3 +132,9 @@
     }
 
 </script>
+<style>
+    #v-list-tile{
+        background: white;
+    }
+
+</style>
