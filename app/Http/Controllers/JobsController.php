@@ -84,7 +84,7 @@ class JobsController extends Controller
             'job_location_address' => 'required'
         ]);
         if (Auth::check()) {
-            dd($this->lipa_na_mpesa());
+            dd($this->lipa_na_mpesa($request->input('pay_amount')));
             $job = Job::create([
                 'title' => $request->input('title'),
                 'owner_id' => Auth::id(),
@@ -149,11 +149,11 @@ class JobsController extends Controller
 
     }
 
-    public function lipa_na_mpesa(){
+    public function lipa_na_mpesa($amount){
         $BusinessShortCode=174379;
         $Passkey='bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';
         $TransactionType='CustomerPayBillOnline';
-        $Amount=400;
+        $Amount=$amount;
         $PartyA=Auth::user()->phone;
         $PartyB=174379;
         $PhoneNumber=Auth::user()->phone;
