@@ -154,9 +154,9 @@ class JobsController extends Controller
         $Passkey='bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919';
         $TransactionType='CustomerPayBillOnline';
         $Amount=$amount;
-        $PartyA=Auth::user()->phone;
+        $PartyA="254".substr(Auth::user()->phone, 1);
         $PartyB=174379;
-        $PhoneNumber=Auth::user()->phone;
+        $PhoneNumber="254".substr(Auth::user()->phone, 1);
         $CallBackURL='http://daraja-api.herokuapp.com/c2b/validation';
         $AccountReference='One Day Jobs Kenya';
         $TransactionDesc='Testing';
