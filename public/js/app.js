@@ -106093,7 +106093,7 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-md-5" },
+        { staticClass: "col-md-6" },
         [
           this.user.first_name == undefined
             ? _c(
@@ -106365,7 +106365,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-7" }, [
+      _c("div", { staticClass: "col-md-6" }, [
         _c("table", { staticClass: "table table-striped" }, [
           _c("thead", [
             _vm._v("\n                Education\n                ")
@@ -106443,18 +106443,14 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-success btn",
+                      staticClass: "btn btn-success btn-sm",
                       on: {
                         click: function($event) {
                           return _vm.addEducation()
                         }
                       }
                     },
-                    [
-                      _c("v-icon", [_vm._v("fas fa-cart-plus")]),
-                      _vm._v("Add Institution")
-                    ],
-                    1
+                    [_vm._v("Add Institution")]
                   )
                 ])
               ])
@@ -106578,18 +106574,14 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-success",
+                      staticClass: "btn btn-success btn-sm",
                       on: {
                         click: function($event) {
                           return _vm.addExperience()
                         }
                       }
                     },
-                    [
-                      _c("v-icon", [_vm._v("fas fa-cart-plus")]),
-                      _vm._v("Add Institution")
-                    ],
-                    1
+                    [_vm._v("Add Institution")]
                   )
                 ])
               ])
