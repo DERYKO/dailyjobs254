@@ -87,7 +87,7 @@
                              <input type="text" placeholder="Course" class="form-control" v-model="education.course"/>
                          </td>
                          <td>
-                             <button class="btn btn-success btn-sm" @click="addEducation()"><v-icon>fas fa-cart-plus</v-icon>Add Institution</button>
+                             <button class="btn btn-success btn-sm" @click="addEducation()">Add Institution</button>
                          </td>
                      </tr>
                      </tbody>
@@ -122,7 +122,7 @@
                              <input type="date" placeholder="End Year" class="form-control" v-model="experience.end_year"/>
                          </td>
                          <td>
-                             <button class="btn btn-success btn-sm" @click="addExperience()"><v-icon>fas fa-cart-plus</v-icon>Add Institution</button>
+                             <button class="btn btn-success btn-sm" @click="addExperience()">Add Institution</button>
                          </td>
                      </tr>
                      </tbody>
