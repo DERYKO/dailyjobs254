@@ -33,6 +33,7 @@ class SendClockinMessages implements ShouldQueue
     {
         Job::where('start_time','>', now()->addHour(3)->toDateTimeString())
             ->where('start_time','<=',now()->addHour(1)->toDateTimeString())
+            ->where('active',true)
             ->get()->each(function ($job){
                 self::dispatch(new SendMessage(User::where('id',$job->applicant_id)->first(),'Hello, in 2hrs you should be clocking in for your job entitled '.$job->title.'. Please observe time to maintain a good profile and get chances of getting more jobs.'));
             });

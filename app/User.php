@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'id_no', 'email', 'password', 'phone','photo_url'
+        'first_name', 'last_name', 'id_no', 'email', 'password', 'phone', 'photo_url'
     ];
 
     /**
@@ -36,7 +36,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Job::class);
     }
-    public function review(){
-        return $this->hasMany(Review::class,'reviewee','id');
+
+    public function review()
+    {
+        return $this->hasMany(Review::class, 'reviewee', 'id');
+    }
+
+    public function experience()
+    {
+        return $this->hasMany(Experience::class);
+    }
+
+    public function education()
+    {
+        return $this->hasMany(Education::class);
     }
 }

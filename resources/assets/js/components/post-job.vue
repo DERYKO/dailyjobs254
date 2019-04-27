@@ -1,6 +1,14 @@
 <template>
-                <form method="post" @submit.prevent="save()">
-                <ul v-for="error in errors"><li>{{error}}</li></ul>
+    <div class="container">
+        <div class="row">
+            <table class="table table-bordered col-md-9">
+                <tbody>
+                <tr class="text-center">
+                    <td><button class="btn btn-success btn-lg">Active jobs</button> </td><td><button class="btn btn-dark btn-lg">Completed jobs</button></td>
+                </tr>
+                </tbody>
+            </table>
+            <form method="post" @submit.prevent="save()">
                 <div class="form-group col-md-9">
                     <label for="title">Title</label>
                     <input v-model="title" type="text" class="form-control" id="title" name="title" required/>
@@ -50,8 +58,9 @@
                 <button class="col-md-9 btn btn-primary btn-lg" type="submit">
                     Post Job
                 </button>
-                </form>
-
+            </form>
+        </div>
+    </div>
 </template>
 <script>
     import moment from 'moment'

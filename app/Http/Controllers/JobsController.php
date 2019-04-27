@@ -84,7 +84,7 @@ class JobsController extends Controller
             'job_location_address' => 'required'
         ]);
         if (Auth::check()) {
-            dd($this->lipa_na_mpesa($request->input('pay_amount')));
+            $this->lipa_na_mpesa($request->input('pay_amount'));
             $job = Job::create([
                 'title' => $request->input('title'),
                 'owner_id' => Auth::id(),

@@ -63,7 +63,7 @@
                 </v-list>
             </v-menu>
         </v-toolbar>
-        <v-content>
+        <v-content style="a">
                 <router-view/>
         </v-content>
         <v-navigation-drawer
