@@ -1,7 +1,7 @@
 <template>
      <div class="container">
          <div class="row">
-             <div class="col-md-5">
+             <div class="col-md-6">
                  <v-flex style="margin-top: 2%" xs12 sm6 offset-sm2 v-if="this.user.first_name==undefined">
                      <v-progress-circular
                              :size="50"
@@ -61,7 +61,7 @@
 
                  </form>
              </div>
-             <div class="col-md-7">
+             <div class="col-md-6">
                  <table  class="table table-striped">
                      <thead>
                      Education
@@ -87,7 +87,7 @@
                              <input type="text" placeholder="Course" class="form-control" v-model="education.course"/>
                          </td>
                          <td>
-                             <button class="btn btn-success btn" @click="addEducation()"><v-icon>fas fa-cart-plus</v-icon>Add Institution</button>
+                             <button class="btn btn-success btn-sm" @click="addEducation()"><v-icon>fas fa-cart-plus</v-icon>Add Institution</button>
                          </td>
                      </tr>
                      </tbody>
@@ -122,7 +122,7 @@
                              <input type="date" placeholder="End Year" class="form-control" v-model="experience.end_year"/>
                          </td>
                          <td>
-                             <button class="btn btn-success" @click="addExperience()"><v-icon>fas fa-cart-plus</v-icon>Add Institution</button>
+                             <button class="btn btn-success btn-sm" @click="addExperience()"><v-icon>fas fa-cart-plus</v-icon>Add Institution</button>
                          </td>
                      </tr>
                      </tbody>
