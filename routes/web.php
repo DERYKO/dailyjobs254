@@ -15,7 +15,7 @@ Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 
 Auth::routes();
 
-Route::post('user', 'ProfilesController@show');
+Route::post('profile', 'ProfilesController@show');
 Route::post('accept-bid', 'ApplicationController@update');
 Route::post('wallet', 'WalletController@balance');
 Route::post('notifications', 'ApplicationController@index');
@@ -28,6 +28,9 @@ Route::post('user/update/{id}', 'ProfilesController@update');
 Route::post('profiles','ProfilesController@index');
 Route::post('education','ProfilesController@education');
 Route::post('experience','ProfilesController@experience');
+Route::post('transcations','JobsController@transaction_logs');
+Route::post('completed','JobsController@complete');
+Route::post('active','JobsController@active');
 
 
 

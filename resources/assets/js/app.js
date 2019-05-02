@@ -65,7 +65,7 @@ const router = new VueRouter({
                 },
                 {
                     path: '/profile',
-                    name: 'profile',
+                    name: 'Profile',
                     component: Profile
                 },
                 {

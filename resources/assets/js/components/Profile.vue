@@ -1,7 +1,7 @@
 <template>
      <div class="container">
          <div class="row">
-             <div class="col-md-6">
+             <div class="col-lg-6">
                  <v-flex style="margin-top: 2%" xs12 sm6 offset-sm2 v-if="this.user.first_name==undefined">
                      <v-progress-circular
                              :size="50"
@@ -61,7 +61,7 @@
 
                  </form>
              </div>
-             <div class="col-md-6">
+             <div class="col-lg-12">
                  <table  class="table table-striped">
                      <thead>
                      Education
@@ -136,11 +136,7 @@
 <script>
     export default {
         mounted() {
-            axios.post('user', {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then((response) => {
+            axios.post('profile').then((response) => {
                 this.user = response.data;
             });
         },

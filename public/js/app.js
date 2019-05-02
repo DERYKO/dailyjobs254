@@ -43470,7 +43470,7 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
             component: __WEBPACK_IMPORTED_MODULE_13__components_Account_vue___default.a
         }, {
             path: '/profile',
-            name: 'profile',
+            name: 'Profile',
             component: __WEBPACK_IMPORTED_MODULE_14__components_Profile_vue___default.a
         }, {
             path: '/post-job',
@@ -105160,6 +105160,83 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -105175,6 +105252,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             jobs: [],
+            job_tab: true,
+            active: false,
+            complete: [],
+            running: [],
+            completed: false,
+            applicants: false,
+            applications: [],
             days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
         };
     },
@@ -105189,6 +105273,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             } else {
                 return num;
             }
+        },
+        iscompleted: function iscompleted() {
+            var _this2 = this;
+
+            this.job_tab = false;
+            this.completed = true;
+            this.active = false;
+            this.applicants = false;
+            axios.post('completed').then(function (response) {
+                _this2.complete = response.data;
+            });
+        },
+        isactive: function isactive() {
+            var _this3 = this;
+
+            this.job_tab = false;
+            this.completed = false;
+            this.active = true;
+            this.applicants = false;
+            axios.post('active').then(function (response) {
+                _this3.running = response.data;
+            });
+        },
+        applicant: function applicant(applied) {
+            this.job_tab = false;
+            this.completed = false;
+            this.active = false;
+            this.applicants = true;
+            this.applications = applied;
+            console.log(applied);
+        },
+        ismounted: function ismounted() {
+            this.job_tab = true;
+            this.completed = false;
+            this.active = false;
+            this.applicants = false;
         }
     }
 
@@ -105206,7 +105326,244 @@ var render = function() {
     "div",
     { staticClass: "col-md-9" },
     [
-      _vm.jobs.length < 1
+      _c("table", { staticClass: "table table-bordered col-md-12" }, [
+        _c("tbody", [
+          _c("tr", { staticClass: "text-center" }, [
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success btn-lg ",
+                  on: {
+                    click: function($event) {
+                      return _vm.isactive()
+                    }
+                  }
+                },
+                [_vm._v("My Active jobs")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-dark btn-lg",
+                  on: {
+                    click: function($event) {
+                      return _vm.iscompleted()
+                    }
+                  }
+                },
+                [_vm._v("Completed jobs")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-dark btn-lg",
+                  on: {
+                    click: function($event) {
+                      return _vm.ismounted()
+                    }
+                  }
+                },
+                [_vm._v("Search jobs")]
+              )
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.complete, function(comp) {
+        return _vm.completed
+          ? _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _c("p", [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "pull-left",
+                      staticStyle: {
+                        color: "black",
+                        border: "solid black",
+                        margin: "1%"
+                      }
+                    },
+                    [_vm._v(_vm._s(comp.title))]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c(
+                  "p",
+                  {
+                    staticStyle: {
+                      "text-align": "justify",
+                      "font-style": "italic"
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(comp.description) +
+                        "\n            "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                Duration:  " +
+                      _vm._s(comp.duration) +
+                      " days\n            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                Amount: " +
+                      _vm._s(comp.pay_amount) +
+                      " Ksh\n            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                Reporting date and time: " +
+                      _vm._s(comp.start_time) +
+                      "\n            "
+                  )
+                ])
+              ])
+            ])
+          : _vm._e()
+      }),
+      _vm._v(" "),
+      _vm._l(_vm.running, function(comp) {
+        return _vm.active
+          ? _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _c("p", [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "pull-left",
+                      staticStyle: {
+                        color: "black",
+                        border: "solid black",
+                        margin: "1%"
+                      }
+                    },
+                    [_vm._v(_vm._s(comp.title))]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c(
+                  "p",
+                  {
+                    staticStyle: {
+                      "text-align": "justify",
+                      "font-style": "italic"
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(comp.description) +
+                        "\n            "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                Duration:  " +
+                      _vm._s(comp.duration) +
+                      " days\n            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                Amount: " +
+                      _vm._s(comp.pay_amount) +
+                      " Ksh\n            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                Reporting date and time: " +
+                      _vm._s(comp.start_time) +
+                      "\n            "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer" }, [
+                _vm._v("\n            No of applicants: "),
+                _c(
+                  "span",
+                  { staticStyle: { color: "black", "font-weight": "bold" } },
+                  [_vm._v(_vm._s(comp.applications.length))]
+                ),
+                _vm._v(" "),
+                comp.applications.length
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "pull-right btn btn-warning btn-sm",
+                        on: {
+                          click: function($event) {
+                            return _vm.applicant(comp.applications)
+                          }
+                        }
+                      },
+                      [_vm._v("View Applicants\n            ")]
+                    )
+                  : _vm._e()
+              ])
+            ])
+          : _vm._e()
+      }),
+      _vm._v(" "),
+      _vm._l(_vm.applications, function(apply) {
+        return _vm.applicant && _vm.applications.length
+          ? _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _vm._v(
+                  "\n            " + _vm._s(apply.applicant_id) + "\n        "
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "card-body text-center",
+                domProps: { innerHTML: _vm._s(apply.cover_letter) }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer text-center" }, [
+                _vm._v(
+                  "\n            Applied on " +
+                    _vm._s(apply.created_at) +
+                    ".\n            "
+                ),
+                _c(
+                  "button",
+                  { staticClass: "btn btn-success btn-sm pull-right" },
+                  [_vm._v("Accept application")]
+                )
+              ])
+            ])
+          : _vm._e()
+      }),
+      _vm._v(" "),
+      _vm.jobs.length < 1 && _vm.job_tab
         ? _c("div", { staticClass: "text-center col-md-9" }, [
             _c(
               "span",
@@ -105217,150 +105574,169 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _vm._l(_vm.jobs, function(job) {
-        return _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _c("p", [
-              _c(
-                "span",
-                {
-                  staticClass: "pull-left",
-                  staticStyle: {
-                    color: "black",
-                    border: "solid black",
-                    margin: "1%"
-                  }
-                },
-                [_vm._v(_vm._s(job.job.title))]
-              ),
-              _c("img", {
-                staticClass: "pull-right",
-                staticStyle: { "border-radius": "40%" },
-                attrs: {
-                  src: job.job.user.photo_url,
-                  height: "40px",
-                  width: "40px"
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c(
-              "p",
-              {
-                staticStyle: { "text-align": "justify", "font-style": "italic" }
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(job.job.description) +
-                    "\n                "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\n                    Duration:  " +
-                  _vm._s(job.job.duration) +
-                  " days\n                "
-              )
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\n                    Amount: " +
-                  _vm._s(job.job.pay_amount) +
-                  " Ksh\n                "
-              )
-            ]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\n                    Reporting date and time: " +
-                  _vm._s(job.job.start_time) +
-                  "\n                "
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          job.forecast.length
-            ? _c("div", { staticClass: "card-footer" }, [
+        return _vm.jobs.length > 1 && _vm.job_tab
+          ? _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _c("p", [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "pull-left",
+                      staticStyle: {
+                        color: "black",
+                        border: "solid black",
+                        margin: "1%"
+                      }
+                    },
+                    [_vm._v(_vm._s(job.job.title))]
+                  ),
+                  _c("img", {
+                    staticClass: "pull-right",
+                    staticStyle: { "border-radius": "40%" },
+                    attrs: {
+                      src: job.job.user.photo_url,
+                      height: "40px",
+                      width: "40px"
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
                 _c(
-                  "div",
+                  "p",
                   {
-                    staticClass: "scrolling-wrapper",
                     staticStyle: {
-                      "overflow-x": "scroll",
-                      "overflow-y": "hidden",
-                      "white-space": "nowrap"
+                      "text-align": "justify",
+                      "font-style": "italic"
                     }
                   },
-                  _vm._l(job.forecast, function(prediction) {
-                    return _c(
-                      "v-card",
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(job.job.description) +
+                        "\n            "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                Duration:  " +
+                      _vm._s(job.job.duration) +
+                      " days\n            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                Amount: " +
+                      _vm._s(job.job.pay_amount) +
+                      " Ksh\n            "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                Reporting date and time: " +
+                      _vm._s(job.job.start_time) +
+                      "\n            "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              job.forecast.length
+                ? _c("div", { staticClass: "card-footer" }, [
+                    _c(
+                      "div",
                       {
+                        staticClass: "scrolling-wrapper",
                         staticStyle: {
-                          display: "inline-block",
-                          height: "auto",
-                          width: "auto"
+                          "overflow-x": "scroll",
+                          "overflow-y": "hidden",
+                          "white-space": "nowrap"
                         }
                       },
-                      [
-                        _c("v-card-title", { attrs: { "primary-title": "" } }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(prediction.prediction) +
-                              "\n                        "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("v-img", {
-                          staticStyle: { width: "55px", height: "63px" },
-                          attrs: { src: _vm.getPath(prediction.icon_code) }
-                        }),
-                        _vm._v(" "),
-                        _c("v-card-title", { attrs: { "primary-title": "" } }, [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(prediction.time) +
-                              " (" +
-                              _vm._s(
-                                _vm.days[new Date(prediction.time).getDay()]
-                              ) +
-                              ")\n                        "
-                          )
-                        ])
-                      ],
+                      _vm._l(job.forecast, function(prediction) {
+                        return _c(
+                          "v-card",
+                          {
+                            key: prediction.id,
+                            staticStyle: {
+                              display: "inline-block",
+                              height: "auto",
+                              width: "auto"
+                            }
+                          },
+                          [
+                            _c(
+                              "v-card-title",
+                              { attrs: { "primary-title": "" } },
+                              [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(prediction.prediction) +
+                                    "\n                    "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("v-img", {
+                              staticStyle: { width: "55px", height: "63px" },
+                              attrs: { src: _vm.getPath(prediction.icon_code) }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "v-card-title",
+                              { attrs: { "primary-title": "" } },
+                              [
+                                _vm._v(
+                                  "\n                        " +
+                                    _vm._s(prediction.time) +
+                                    " (" +
+                                    _vm._s(
+                                      _vm.days[
+                                        new Date(prediction.time).getDay()
+                                      ]
+                                    ) +
+                                    ")\n                    "
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      }),
                       1
                     )
-                  }),
-                  1
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "text-center" },
-            [
-              _c(
-                "router-link",
-                {
-                  attrs: {
-                    to: { name: "job-details", params: { job_id: job.job.id } }
-                  }
-                },
-                [
-                  _c("button", { staticClass: "btn btn-success" }, [
-                    _vm._v("View Details")
                   ])
-                ]
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "text-center" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: {
+                          name: "job-details",
+                          params: { job_id: job.job.id }
+                        }
+                      }
+                    },
+                    [
+                      _c("button", { staticClass: "btn btn-success" }, [
+                        _vm._v("View Details")
+                      ])
+                    ]
+                  )
+                ],
+                1
               )
-            ],
-            1
-          )
-        ])
+            ])
+          : _vm._e()
       })
     ],
     2
@@ -106009,11 +106385,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        axios.post('user', {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }).then(function (response) {
+        axios.post('profile').then(function (response) {
             _this.user = response.data;
         });
     },
@@ -106093,7 +106465,7 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-md-6" },
+        { staticClass: "col-lg-6" },
         [
           this.user.first_name == undefined
             ? _c(
@@ -106365,7 +106737,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
         _c("table", { staticClass: "table table-striped" }, [
           _c("thead", [
             _vm._v("\n                Education\n                ")
@@ -106750,13 +107122,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -106854,8 +107219,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
-      _vm._m(0),
-      _vm._v(" "),
       _c(
         "form",
         {
@@ -107067,29 +107430,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "table table-bordered col-md-9" }, [
-      _c("tbody", [
-        _c("tr", { staticClass: "text-center" }, [
-          _c("td", [
-            _c("button", { staticClass: "btn btn-success btn-lg" }, [
-              _vm._v("Active jobs")
-            ])
-          ]),
-          _c("td", [
-            _c("button", { staticClass: "btn btn-dark btn-lg" }, [
-              _vm._v("Completed jobs")
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

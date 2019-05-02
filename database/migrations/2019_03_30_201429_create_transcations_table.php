@@ -14,17 +14,13 @@ class CreateTranscationsTable extends Migration
     public function up()
     {
         Schema::create('transcations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('from_id')->unsigned();
-            $table->integer('to_id')->unsigned();
-            $table->float('amount');
-            $table->string('transfer_type');
-            $table->foreign('from_id')
-                ->references('id')
-                ->on('users');
-            $table->foreign('to_id')
-                ->references('id')
-                ->on('users');
+            $table->bigIncrements('id');
+            $table->string('transaction_code');
+            $table->string('amount');
+            $table->string('transaction_date');
+            $table->string('phone_number');
+            $table->string('CheckoutRequestID');
+            $table->string('Balance');
             $table->timestamps();
         });
     }

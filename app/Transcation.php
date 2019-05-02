@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transcation extends Model
 {
-    protected $fillable=['from_id','to_id','transfer_type','amount'];
+    protected $fillable=[
+        'transaction_code','amount','transaction_date','phone_number','CheckoutRequestID','Balance'
+    ];
 }
