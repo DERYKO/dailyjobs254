@@ -105237,6 +105237,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mounted: function mounted() {
@@ -105251,7 +105284,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
+            Number: 0,
+            s: 1,
+            pageNumber: 0,
             jobs: [],
+            size: 3,
             job_tab: true,
             active: false,
             complete: [],
@@ -105309,6 +105346,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.completed = false;
             this.active = false;
             this.applicants = false;
+        },
+        nextPage: function nextPage() {
+            this.pageNumber++;
+        },
+        prevPage: function prevPage() {
+            this.pageNumber--;
+        },
+        nextP: function nextP() {
+            this.Number++;
+        },
+        prevP: function prevP() {
+            this.Number--;
+        }
+    },
+    computed: {
+        pageCount: function pageCount() {
+            var l = this.jobs.length,
+                s = this.size;
+            return Math.floor(l / s);
+        },
+        paginatedData: function paginatedData() {
+            var start = this.pageNumber * this.size,
+                end = start + this.size;
+            return this.jobs.slice(start, end);
+        },
+        pageC: function pageC() {
+            var l = this.applications.length,
+                s = this.s;
+            return Math.floor(l / s);
+        },
+        paginatedD: function paginatedD() {
+            var start = this.Number * this.s,
+                end = start + this.s;
+            return this.applications.slice(start, end);
         }
     }
 
@@ -105533,8 +105604,8 @@ var render = function() {
           : _vm._e()
       }),
       _vm._v(" "),
-      _vm._l(_vm.applications, function(apply) {
-        return _vm.applicant && _vm.applications.length
+      _vm._l(_vm.paginatedD, function(apply) {
+        return _vm.applicants && _vm.applications.length
           ? _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header" }, [
                 _vm._v(
@@ -105563,6 +105634,38 @@ var render = function() {
           : _vm._e()
       }),
       _vm._v(" "),
+      _vm.applicants && _vm.applications.length
+        ? _c("p", { staticStyle: { "margin-bottom": "8%" } }, [
+            _c(
+              "button",
+              {
+                staticClass: "pull-left btn btn-warning btn-lg",
+                attrs: { disabled: Number === 0 },
+                on: { click: _vm.prevP }
+              },
+              [
+                _c("v-icon", [_vm._v("far fa-hand-point-left")]),
+                _vm._v("\n            Previous\n        ")
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "pull-right btn btn-warning btn-lg",
+                attrs: { disabled: Number >= _vm.pageC - 1 },
+                on: { click: _vm.nextP }
+              },
+              [
+                _c("v-icon", [_vm._v("far fa-hand-point-right")]),
+                _vm._v("\n            Next\n        ")
+              ],
+              1
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _vm.jobs.length < 1 && _vm.job_tab
         ? _c("div", { staticClass: "text-center col-md-9" }, [
             _c(
@@ -105573,7 +105676,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm._l(_vm.jobs, function(job) {
+      _vm._l(_vm.paginatedData, function(job) {
         return _vm.jobs.length > 1 && _vm.job_tab
           ? _c("div", { staticClass: "card" }, [
               _c("div", { staticClass: "card-header" }, [
@@ -105737,7 +105840,39 @@ var render = function() {
               )
             ])
           : _vm._e()
-      })
+      }),
+      _vm._v(" "),
+      _vm.jobs.length > 1 && _vm.job_tab
+        ? _c("p", { staticStyle: { "margin-bottom": "8%" } }, [
+            _c(
+              "button",
+              {
+                staticClass: "pull-left btn btn-warning btn-lg",
+                attrs: { disabled: _vm.pageNumber === 0 },
+                on: { click: _vm.prevPage }
+              },
+              [
+                _c("v-icon", [_vm._v("far fa-hand-point-left")]),
+                _vm._v("\n            Previous\n        ")
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "pull-right btn btn-warning btn-lg",
+                attrs: { disabled: _vm.pageNumber >= _vm.pageCount - 1 },
+                on: { click: _vm.nextPage }
+              },
+              [
+                _c("v-icon", [_vm._v("far fa-hand-point-right")]),
+                _vm._v("\n            Next\n        ")
+              ],
+              1
+            )
+          ])
+        : _vm._e()
     ],
     2
   )

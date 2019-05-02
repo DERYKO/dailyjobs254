@@ -213,6 +213,7 @@ class JobsController extends Controller
     public function transaction_logs(Request $request)
     {
         $payload = $request->json()->all();
+        dd($payload);
         if ($payload) {
 
             $body = $payload['Body'];

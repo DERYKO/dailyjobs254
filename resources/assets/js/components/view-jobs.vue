@@ -61,7 +61,7 @@
                 </button>
             </div>
         </div>
-        <div class="card" v-if="applicant && applications.length" v-for="apply in applications">
+        <div class="card" v-if="applicants && applications.length" v-for="apply in paginatedD">
             <div class="card-header">
                 {{ apply.applicant_id}}
             </div>
@@ -72,10 +72,26 @@
                 <button class="btn btn-success btn-sm pull-right">Accept application</button>
             </div>
         </div>
+        <p v-if="applicants && applications.length" style="margin-bottom: 8%">
+            <button
+                    class="pull-left btn btn-warning btn-lg"
+                    :disabled="Number === 0"
+                    @click="prevP">
+                <v-icon>far fa-hand-point-left</v-icon>
+                Previous
+            </button>
+            <button
+                    class="pull-right btn btn-warning btn-lg"
+                    :disabled="Number >= pageC -1"
+                    @click="nextP">
+                <v-icon>far fa-hand-point-right</v-icon>
+                Next
+            </button>
+        </p>
         <div v-if="jobs.length<1 && job_tab" class="text-center col-md-9">
             <span style="font-size: 50px; color: black">No jobs available for now</span>
         </div>
-        <div v-if="jobs.length>1 && job_tab" class="card" v-for="job in jobs">
+        <div v-if="jobs.length>1 && job_tab" class="card" v-for="job in paginatedData">
             <div class="card-header">
                 <p><span class="pull-left"
                          style="color: black; border: solid black; margin: 1%">{{job.job.title}}</span><img
@@ -116,6 +132,23 @@
                 </router-link>
             </div>
         </div>
+        <p v-if="jobs.length>1 && job_tab" style="margin-bottom: 8%">
+            <button
+                    class="pull-left btn btn-warning btn-lg"
+                    :disabled="pageNumber === 0"
+                    @click="prevPage">
+                <v-icon>far fa-hand-point-left</v-icon>
+                Previous
+            </button>
+            <button
+                    class="pull-right btn btn-warning btn-lg"
+                    :disabled="pageNumber >= pageCount -1"
+                    @click="nextPage">
+                <v-icon>far fa-hand-point-right</v-icon>
+                Next
+            </button>
+        </p>
+
     </div>
 </template>
 <script>
@@ -130,7 +163,11 @@
         },
         data() {
             return {
+                Number: 0,
+                s: 1,
+                pageNumber: 0,
                 jobs: [],
+                size: 3,
                 job_tab: true,
                 active: false,
                 complete: [],
@@ -183,6 +220,42 @@
                 this.completed = false;
                 this.active = false;
                 this.applicants = false;
+            },
+            nextPage(){
+                this.pageNumber++;
+            },
+            prevPage(){
+                this.pageNumber--;
+            },
+            nextP(){
+                this.Number++;
+            },
+            prevP(){
+                this.Number--;
+            }
+        },
+        computed:{
+            pageCount(){
+                let l = this.jobs.length,
+                    s = this.size;
+                return Math.floor(l/s);
+            },
+            paginatedData(){
+                const start = this.pageNumber * this.size,
+                    end = start + this.size;
+                return this.jobs
+                    .slice(start, end);
+            },
+            pageC(){
+                let l = this.applications.length,
+                    s = this.s;
+                return Math.floor(l/s);
+            },
+            paginatedD(){
+                const start = this.Number * this.s,
+                    end = start + this.s;
+                return this.applications
+                    .slice(start, end);
             }
         }
 
